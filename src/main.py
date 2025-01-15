@@ -4,7 +4,7 @@ import marshmallow
 import sqlalchemy
 
 from src.infra.db import db
-from src.infra.routes.customer_services_routes import bp
+from src.infra.routes.customer_services_routes import cs_bp
 from src.entities.entities import Service, Client
 from src.models.service_model import CustomerServiceModel
 from src.models.client_model import ClientModel
@@ -14,8 +14,7 @@ app = Flask(__name__)
 
 db.init_db()
 
-app.register_blueprint(bp)
-
+app.register_blueprint(cs_bp, url_prefix='/v1')
 
 @app.route('/')
 def hello_world():
