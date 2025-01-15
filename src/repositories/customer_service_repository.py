@@ -31,7 +31,6 @@ class CustomerServiceRepository(AbstractRepository):
         except Exception as e:
             raise e
 
-
     def get_all(self):
         try:
             customer_services = self.db.query(CustomerServiceModel).all()
@@ -41,7 +40,9 @@ class CustomerServiceRepository(AbstractRepository):
 
     def update(self, customer_service_id, entity):
         try:
-            self.db.query(CustomerServiceModel).filter_by(id=customer_service_id).update(entity)
+            customer_service = self.db.query(CustomerServiceModel).filter_by(id=customer_service_id).update(entity)
+            if not customer_service:
+                raise CustomerServiceDoesNotExistException('Customer Service does not exist')
             self.db.commit()
             updated_customer_service = self.db.query(CustomerServiceModel).filter_by(id=customer_service_id).first()
         except Exception as e:

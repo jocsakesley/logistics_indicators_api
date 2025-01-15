@@ -55,7 +55,7 @@ def update_service(customer_service_id):
     except marshmallow.exceptions.ValidationError as e:
         return jsonify(e.messages), 400
     except CustomerServiceDoesNotExistException as e:
-        return jsonify({'error': str(e)}), 404
+        return jsonify({'error': str(e)}), 400
     return jsonify(updated_customer_service.to_dict())
 
 @cs_bp.post('/services/batch')
