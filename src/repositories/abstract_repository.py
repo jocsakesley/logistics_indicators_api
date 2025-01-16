@@ -26,7 +26,3 @@ class AbstractRepository(ABC):
     @abstractmethod
     def delete(self, entity: BaseModel) -> None:
         pass
-
-    @abstractmethod
-    def exists(self, entity_id: int) -> bool:
-        pass
