@@ -9,7 +9,7 @@ class AddCustomerServiceUseCase:
         self.customer_repository = customer_repository
 
     def execute(self, *args, **kwargs):
-        client = self.customer_repository.get(args[0].client_id)
+        client = self.customer_repository.get(args[0].id_cliente)
         self.customer_service_repository.add(*args)
         if not client:
             raise ClientDoesNotExistException('Client does not exist') 

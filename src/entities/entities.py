@@ -13,7 +13,7 @@ class ClientResponse(Client):
     id = fields.Int()
 
 class Service(Schema):
-    client_id = fields.Int(required=True)
+    id_cliente = fields.Int(required=True)
     angel = fields.Str(required=True)
     polo = fields.Str(required=True)
     data_limite = fields.Date(required=True, 
