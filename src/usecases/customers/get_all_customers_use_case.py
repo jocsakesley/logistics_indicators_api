@@ -1,4 +1,5 @@
 
+from flask import Request
 from src.repositories.abstract_repository import AbstractRepository
 
 
@@ -7,4 +8,9 @@ class GetAllCustomersUseCase:
         self.customer_repository = customer_repository
 
     def execute(self, *args, **kwargs):
-        return self.customer_repository.get_all()
+        request: Request = kwargs.get("request")
+        if "total" in request.path.split("/"):
+            total = self.customer_repository.get_all()
+            return {"total": total}
+        customers = self.customer_repository.get_all()
+        return [customer.to_dict() for customer in customers]
