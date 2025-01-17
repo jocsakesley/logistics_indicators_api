@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, func
 from sqlalchemy.orm import scoped_session, sessionmaker, declarative_base
 import os
 
@@ -11,6 +11,7 @@ Base.query = db_session.query_property()
 
 class DbSession:
     db = db_session
+    func = func
 
 def init_db():
     import src.models

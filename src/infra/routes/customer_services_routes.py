@@ -27,10 +27,16 @@ cs_bp = Blueprint('services', __name__)
 
 
 @cs_bp.get('/services')
-def get_all_services():
+def get_all_customer_services():
     repository = CustomerServiceRepository(db.DbSession)
     use_case = GetAllCustomerServiceUseCase(repository)
-    return GetAllCustomerServiceController(use_case).handle()
+    return GetAllCustomerServiceController(use_case).handle(request=request)
+
+@cs_bp.get('/services/total')
+def get_total_customer_services():
+    repository = CustomerServiceRepository(db.DbSession)
+    use_case = GetAllCustomerServiceUseCase(repository)
+    return GetAllCustomerServiceController(use_case).handle(request=request)
 
 @cs_bp.get('/services/<int:customer_service_id>')
 def get_service(customer_service_id):
@@ -54,7 +60,7 @@ def update_service(customer_service_id):
 
 
 @cs_bp.post('/services/batch')
-async def load_customer_services_thread():
+def load_customer_services_thread():
     repository = CustomerServiceRepository(db.DbSession)
     use_case = LoadCustomerServicesUseCase(repository)
     return LoadCustomerServicesController(use_case).handle(file=request.files['file'], queue=Queue())

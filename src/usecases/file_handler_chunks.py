@@ -31,17 +31,28 @@ class FileHandler:
         while True:
             try:
                 with self.lock:
-                    line = self.queue.get_nowait()
-                    register = line.split(";")
-                    if register[0].isnumeric():
-                        try:
+                    chunks = []
+                    lines = []
+                    for i in range(min(1000, self.queue.qsize())):
+                        line = self.queue.get_nowait()
+                        lines.append(line)
+                        register = line.split(";")
+                        if register[0].isnumeric():
                             customer_service = self.model().load_by_file(*register)
-                            self.repository.add(customer_service)
-                        except Exception:
-                            with self.lock:
-                                self.queue.put(line)
+                            chunks.append(customer_service)
+                    try:
+                        self.repository.add_all(chunks)
+                    except Exception:
+                        with self.lock:
+                            [self.queue.put(line) for line in lines]
             except Empty:
-                time.sleep(1)
+                time.sleep(0.1)
+                if self.queue.empty():
+                    empty_start = time.time()
+                    while self.queue.empty() and (time.time() - empty_start) < 10:
+                        time.sleep(0.1)
+                    if self.queue.empty():
+                        break
                 continue
 
     def start_threads(self):

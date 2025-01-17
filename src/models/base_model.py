@@ -11,7 +11,26 @@ class BaseModel(Base):
     def to_dict(self) -> dict:
         pass
 
-    @staticmethod
-    def convert_date(date: str):
-        """Convert date from %d/%m/%Y to %Y-%m-%d format"""
-        datetime.strptime(date, "%d/%m/%Y").strftime("%Y-%m-%d")
+    @abstractmethod
+    def load_by_file(self, *args, **kwargs) -> dict:
+        pass
+
+    def date_converter(self, date):
+        formats = [
+            "%d/%m/%Y",
+            "%Y-%m-%d %H:%M:%S",
+            "%d/%m%Y %H:%M",
+            "%d/%m/%Y %H:%M:%S"
+        ]
+        
+        for format in formats:
+            try:
+                date_obj = datetime.strptime(date, format)
+                return date_obj.strftime("%Y%m%d %H%M%S")
+            except ValueError:
+                continue
+
+
+if __name__ == "__main__":
+    base = BaseModel.convert_date("01/05/2025")
+    print(base)
