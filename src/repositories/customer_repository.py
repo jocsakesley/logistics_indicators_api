@@ -1,6 +1,6 @@
 
 
-from src.models.client_model import ClientModel
+from src.models.client_model import CustomerModel
 from src.repositories.abstract_repository import AbstractRepository
 from src.infra.db.db import DbSession
 
@@ -29,7 +29,7 @@ class CustomerRepository(AbstractRepository):
         
     def get(self, customer_id):
         try:
-            customer = self.db.query(ClientModel).filter_by(id=customer_id).first()
+            customer = self.db.query(CustomerModel).filter_by(id=customer_id).first()
             if not customer:
                 raise CustomerDoesNotExistException('Customer does not exist')
             return customer
@@ -38,18 +38,18 @@ class CustomerRepository(AbstractRepository):
 
     def get_all(self):
         try:
-            customer = self.db.query(self.func.count(ClientModel.id)).scalar()
+            customer = self.db.query(self.func.count(CustomerModel.id)).scalar()
         except Exception as e:
             raise e  
         return customer
 
     def update(self, customer_id, entity):
         try:
-            customer = self.db.query(ClientModel).filter_by(id=customer_id).update(entity)
+            customer = self.db.query(CustomerModel).filter_by(id=customer_id).update(entity)
             if not customer:
                 raise CustomerDoesNotExistException('Customer does not exist')
             self.db.commit()
-            updated_customer = self.db.query(ClientModel).filter_by(id=customer_id).first()
+            updated_customer = self.db.query(CustomerModel).filter_by(id=customer_id).first()
         except Exception as e:
             self.db.rollback()
             raise e
@@ -57,7 +57,7 @@ class CustomerRepository(AbstractRepository):
 
     def delete(self, customer_id):
         try:
-            customer = self.db.query(ClientModel).filter_by(id=customer_id).first()
+            customer = self.db.query(CustomerModel).filter_by(id=customer_id).first()
             if not customer:
                 raise CustomerDoesNotExistException('Customer does not exist')
             self.db.delete(customer)

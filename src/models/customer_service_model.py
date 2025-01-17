@@ -10,23 +10,23 @@ class CustomerServiceModel(BaseModel):
     __tablename__ = 'customer_services'
 
     id = Column(Integer, primary_key=True)
-    client_id = Column(Integer, ForeignKey('clients.id'), nullable=True)
-    client = relationship('ClientModel', back_populates='services')
+    id_cliente = Column(Integer, ForeignKey('clients.id'), nullable=True, name="id_cliente")
+    client = relationship('CustomerModel', back_populates='services')
     angel = Column(String(50))
     polo = Column(String(50))
     data_limite = Column(Date)
     data_de_atendimento = Column(DateTime)
 
-    def __init__(self, client_id=None, angel=None, polo=None, data_limite=None, data_de_atendimento=None):
-        self.client_id = client_id
+    def __init__(self, id_cliente=None, angel=None, polo=None, data_limite=None, data_de_atendimento=None):
+        self.id_cliente = id_cliente
         self.angel = angel
         self.polo = polo
         self.data_limite = data_limite
         self.data_de_atendimento = data_de_atendimento
     
-    def load_by_file(self, id, client_id, angel, polo, data_limite, data_de_atendimento):
+    def load_by_file(self, id, id_cliente, angel, polo, data_limite, data_de_atendimento):
         self.id = id
-        self.client_id = client_id
+        self.id_cliente = id_cliente
         self.angel = angel
         self.polo = polo
         self.data_limite = self.date_converter(data_limite)
@@ -39,7 +39,7 @@ class CustomerServiceModel(BaseModel):
     def to_dict(self) -> dict:
         return {
                     'id': self.id,
-                    'client_id': self.client_id,
+                    'id_cliente': self.id_cliente,
                     'angel': self.angel,
                     'polo': self.polo,
                     'data_limite': self.data_limite,

@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 from src.models.base_model import BaseModel
 
-class ClientModel(BaseModel):
+class CustomerModel(BaseModel):
     __tablename__ = 'clients'
 
     id = Column(Integer, primary_key=True)

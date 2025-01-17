@@ -2,7 +2,6 @@
 
 from src.infra.db.db import DbSession
 from src.models.customer_service_model import CustomerServiceModel
-from src.models.client_model import ClientModel
 from src.repositories.abstract_repository import AbstractRepository
 
 

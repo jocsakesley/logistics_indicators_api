@@ -4,7 +4,7 @@ import marshmallow
 import sqlalchemy
 from src.controllers.abstract_controller import AbstractController
 from src.entities.entities import Client
-from src.models.client_model import ClientModel
+from src.models.client_model import CustomerModel
 from src.usecases.customers.add_customer_use_case import AddCustomerUseCase
 
 
@@ -16,7 +16,7 @@ class AddCustomerController(AbstractController):
         try:
             schema = Client()
             customer_schema = schema.load(kwargs.get("request")) 
-            customer_model = ClientModel(**customer_schema)  
+            customer_model = CustomerModel(**customer_schema)  
             self.add_customer_use_case.execute(customer_model)
         except marshmallow.exceptions.ValidationError as e:
             return jsonify(e.messages), 400

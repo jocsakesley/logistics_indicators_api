@@ -12,7 +12,7 @@ from src.controllers.customer_services.get_all_customer_services_controller impo
 from src.controllers.customer_services.get_one_customer_service_controller import GetOneCustomerServiceController
 from src.entities.entities import Service
 from src.infra.db import db
-from src.models.client_model import ClientModel
+from src.models.client_model import CustomerModel
 from src.models.customer_service_model import CustomerServiceModel
 from src.repositories.customer_service_repository import ClientDoesNotExistException, CustomerServiceDoesNotExistException, CustomerServiceRepository
 from src.usecases.file_handler import FileHandler
