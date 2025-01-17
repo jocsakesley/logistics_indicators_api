@@ -1,5 +1,5 @@
 
-from flask import jsonify
+from flask import jsonify, url_for
 from src.controllers.abstract_controller import AbstractController
 from src.usecases.customer_services.get_all_customer_service_use_case import GetAllCustomerServiceUseCase
 
@@ -10,7 +10,8 @@ class GetAllCustomerServiceController(AbstractController):
     
     def handle(self, *args, **kwargs):
         try:
-            customer_services = self.get_all_customer_service_use_case.execute()
+            result = self.get_all_customer_service_use_case.execute(**kwargs)
         except Exception as e:
             return jsonify({'error': str(e)}), 500
-        return jsonify([customer_service.to_dict() for customer_service in customer_services])
+        
+        return jsonify(result)
