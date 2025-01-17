@@ -6,7 +6,6 @@ from werkzeug.datastructures import FileStorage
 from queue import Queue, Empty
 
 from src.models.base_model import BaseModel
-from src.models.customer_service_model import CustomerServiceModel
 from src.repositories.abstract_repository import AbstractRepository
 
 class FileHandler:

@@ -1,5 +1,5 @@
 
-from src.repositories.customer_service_repository import FilterClientIdException
+from src.usecases.exceptions import FilterClientIdException
 from src.repositories.abstract_repository import AbstractRepository
 from flask import Request, url_for
 
