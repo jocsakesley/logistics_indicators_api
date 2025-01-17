@@ -11,7 +11,7 @@ class ClientModel(BaseModel):
     telefone = Column(String(11), nullable=True)
     services = relationship('CustomerServiceModel', back_populates='client')
 
-    def __init__(self, nome, email, telefone=None):
+    def __init__(self, nome=None, email=None, telefone=None):
         self.nome = nome
         self.email = email
         self.telefone = telefone
@@ -19,6 +19,13 @@ class ClientModel(BaseModel):
 
     def __repr__(self):
         return f'<Client {self.nome}>'
+    
+    def load_by_file(self, id, nome, email, telefone):
+        self.id = id
+        self.nome = nome
+        self.email = email
+        self.telefone = telefone
+        return self
     
     def to_dict(self):
         return {

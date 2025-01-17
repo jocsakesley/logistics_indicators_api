@@ -9,6 +9,7 @@ class CustomerRepository(AbstractRepository):
     def __init__(self, db: DbSession):
         super().__init__()
         self.db = db.db
+        self.func = db.func
 
     def add(self, entity):
         try:
@@ -18,7 +19,14 @@ class CustomerRepository(AbstractRepository):
             self.db.rollback()
             raise e
       
-
+    def add_all(self, entities):
+        try:
+            self.db.add_all(entities)
+            self.db.commit()
+        except Exception as e:
+            self.db.rollback()
+            raise e
+        
     def get(self, customer_id):
         try:
             customer = self.db.query(ClientModel).filter_by(id=customer_id).first()
@@ -30,10 +38,10 @@ class CustomerRepository(AbstractRepository):
 
     def get_all(self):
         try:
-            customers = self.db.query(ClientModel).all()
+            customer = self.db.query(self.func.count(ClientModel.id)).scalar()
         except Exception as e:
-            raise e
-        return customers
+            raise e  
+        return customer
 
     def update(self, customer_id, entity):
         try:

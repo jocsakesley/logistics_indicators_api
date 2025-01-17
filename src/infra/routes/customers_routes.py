@@ -1,6 +1,8 @@
 
 
+from queue import Queue
 from flask import Blueprint, request
+from src.controllers.customers.load_customers_controller import LoadCustomersController
 from src.controllers.customers.delete_customer_controller import DeleteCustomerController
 from src.controllers.customers.update_customer_controller import UpdateCustomerController
 from src.controllers.customers.get_one_customer_controller import GetOneCustomerController
@@ -13,6 +15,7 @@ from src.usecases.customers.get_all_customers_use_case import GetAllCustomersUse
 from src.usecases.customers.get_one_customer_use_case import GetOneCustomerUseCase
 from src.usecases.customers.update_customer_use_case import UpdateCustomerUseCase
 from src.usecases.customers.delete_customer_use_case import DeleteCustomerUseCase
+from src.usecases.customers.load_customers_use_case import LoadCustomersUseCase
 
 customer_bp = Blueprint('customers', __name__)
 
@@ -27,7 +30,13 @@ def create_customer():
 def get_all_clients():
     repository = CustomerRepository(db.DbSession)
     use_case = GetAllCustomersUseCase(repository)
-    return GetAllCustomersController(use_case).handle()
+    return GetAllCustomersController(use_case).handle(request=request)
+
+@customer_bp.get('/customers/total')
+def get_total_clients():
+    repository = CustomerRepository(db.DbSession)
+    use_case = GetAllCustomersUseCase(repository)
+    return GetAllCustomersController(use_case).handle(request=request)
 
 @customer_bp.get('/customers/<int:customer_id>')
 def get_one_client(customer_id):
@@ -46,3 +55,9 @@ def delete_client(customer_id):
     repository = CustomerRepository(db.DbSession)
     use_case = DeleteCustomerUseCase(repository)
     return DeleteCustomerController(use_case).handle(customer_id=customer_id)
+
+@customer_bp.post('/customers/batch')
+def load_customer_thread():
+    repository = CustomerRepository(db.DbSession)
+    use_case = LoadCustomersUseCase(repository)
+    return LoadCustomersController(use_case).handle(file=request.files['file'], queue=Queue())

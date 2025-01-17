@@ -10,7 +10,7 @@ class GetAllCustomersController(AbstractController):
     
     def handle(self, *args, **kwargs):
         try:
-            customers = self.get_all_customers_use_case.execute()
+            result = self.get_all_customers_use_case.execute(**kwargs)
         except Exception as e:
             return jsonify({'error': str(e)}), 500
-        return jsonify([customer.to_dict() for customer in customers])
+        return jsonify(result)
