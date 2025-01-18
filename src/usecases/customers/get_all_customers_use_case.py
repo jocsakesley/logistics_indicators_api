@@ -16,7 +16,7 @@ class GetAllCustomersUseCase:
         offset = dict_args.pop("offset", "0")
 
         if "total" in request.path.split("/"):
-            total = self.customer_repository.get_all()
+            total = self.customer_repository.get_total_count()
             return {"total": total}
 
         try:

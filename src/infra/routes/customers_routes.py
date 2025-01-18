@@ -10,7 +10,6 @@ from src.controllers.customers.update_customer_controller import UpdateCustomerC
 from src.controllers.customers.get_one_customer_controller import GetOneCustomerController
 from src.controllers.customers.get_all_customers_controller import GetAllCustomersController
 from src.controllers.customers.add_customer_controller import AddCustomerController
-from src.repositories.customer_repository import CustomerRepository
 from src.infra.db import db
 from src.usecases.customers.add_customer_use_case import AddCustomerUseCase
 from src.usecases.customers.get_all_customers_use_case import GetAllCustomersUseCase
