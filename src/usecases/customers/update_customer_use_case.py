@@ -1,4 +1,7 @@
+
 from src.repositories.abstract_repository import AbstractRepository
+from src.entities.entities import Service
+from src.usecases.exceptions import CustomerDoesNotExistException
 
 
 class UpdateCustomerUseCase:
@@ -6,5 +9,9 @@ class UpdateCustomerUseCase:
         self.customer_repository = customer_repository
 
     def execute(self, *args, **kwargs):
-        return self.customer_repository.update(*args)
+        customer_service = self.customer_repository.update(*args)
+        if not customer_service:
+            raise CustomerDoesNotExistException('Customer does not exist')
+        updated_customer_service = self.customer_repository.get(args[0])
+        return updated_customer_service
         

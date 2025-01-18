@@ -1,5 +1,5 @@
 
-from src.repositories.customer_service_repository import FilterClientIdException
+from src.usecases.exceptions import FilterClientIdException
 from src.repositories.abstract_repository import AbstractRepository
 from flask import Request, url_for
 
@@ -16,12 +16,9 @@ class GetAllCustomerServiceUseCase:
         offset = dict_args.pop("offset", "0")
 
         if "total" in request.path.split("/"):
-            total = self.customer_service_repository.get_all()
+            total = self.customer_service_repository.get_total_count()
             return {"total": total}
 
-        # if not dict_args:
-        #     customer_services = self.customer_service_repository.get_all(limit, offset)
-        # else:
         try:
             customer_services = self.customer_service_repository.filter(limit, offset, **dict_args)
         except Exception:

@@ -3,7 +3,7 @@
 from flask import jsonify
 import marshmallow
 
-from src.repositories.customer_service_repository import CustomerServiceDoesNotExistException
+from src.usecases.exceptions import CustomerServiceDoesNotExistException
 from src.entities.entities import Service
 from src.usecases.customer_services.update_customer_service_use_case import UpdateCustomerServiceUseCase
 

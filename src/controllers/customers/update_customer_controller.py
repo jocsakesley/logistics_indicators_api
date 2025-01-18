@@ -3,7 +3,7 @@
 from flask import jsonify
 import marshmallow
 
-from src.repositories.customer_service_repository import CustomerServiceDoesNotExistException
+from src.usecases.exceptions import CustomerServiceDoesNotExistException
 from src.entities.entities import Client, Service
 from src.usecases.customer_services.update_customer_service_use_case import UpdateCustomerServiceUseCase
 from src.usecases.customers.update_customer_use_case import UpdateCustomerUseCase
@@ -18,7 +18,7 @@ class UpdateCustomerController:
             schema = Client()
             customer_schema = schema.load(kwargs.get("request"))
             updated_customer = self.update_customer_use_case.execute(
-                 kwargs.get("customer_id"), customer_schema
+                 kwargs.get("id"), customer_schema
                  )
         except marshmallow.exceptions.ValidationError as e:
             return jsonify(e.messages), 400

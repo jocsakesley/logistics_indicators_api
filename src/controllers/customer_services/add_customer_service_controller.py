@@ -2,11 +2,10 @@
 
 from flask import jsonify, request
 import marshmallow
-from src.repositories.customer_repository import CustomerDoesNotExistException
 from src.controllers.abstract_controller import AbstractController
 from src.entities.entities import Service
 from src.models.customer_service_model import CustomerServiceModel
-from src.repositories.customer_service_repository import ClientDoesNotExistException, CustomerServiceRepository
+from src.usecases.exceptions import CustomerDoesNotExistException
 from src.usecases.customer_services.add_customer_service_use_case import AddCustomerServiceUseCase
 
 

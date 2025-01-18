@@ -1,5 +1,6 @@
 
 from src.repositories.abstract_repository import AbstractRepository
+from src.usecases.exceptions import CustomerDoesNotExistException
 
 
 class DeleteCustomerUseCase:
@@ -7,4 +8,7 @@ class DeleteCustomerUseCase:
         self.customer_repository = customer_repository
 
     def execute(self, *args, **kwargs):
-        return self.customer_repository.delete(**kwargs)
+        customer = self.customer_repository.get(**kwargs)
+        if not customer:
+            raise CustomerDoesNotExistException('Customer does not exist')
+        self.customer_repository.delete(customer)

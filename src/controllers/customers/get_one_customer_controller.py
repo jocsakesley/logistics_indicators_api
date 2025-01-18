@@ -1,7 +1,6 @@
 
 from flask import jsonify
-from src.repositories.customer_repository import CustomerDoesNotExistException
-from src.repositories.customer_service_repository import CustomerServiceDoesNotExistException, CustomerServiceRepository
+from src.usecases.exceptions import CustomerDoesNotExistException
 from src.usecases.customer_services.get_one_customer_service_use_case import GetOneCustomerServiceUseCase
 from src.usecases.customers.get_one_customer_use_case import GetOneCustomerUseCase
 

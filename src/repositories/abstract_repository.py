@@ -12,11 +12,11 @@ class AbstractRepository(ABC):
         pass
 
     @abstractmethod
-    def get(self, entity_id: int) -> BaseModel:
+    def add_all(self, entities: List[BaseModel]) -> None:
         pass
 
     @abstractmethod
-    def get_all(self) -> List[BaseModel]:
+    def get(self, entity_id: int) -> BaseModel:
         pass
 
     @abstractmethod

@@ -1,5 +1,5 @@
 
-from src.repositories.customer_service_repository import CustomerServiceDoesNotExistException
+from src.usecases.exceptions import CustomerServiceDoesNotExistException
 from src.repositories.abstract_repository import AbstractRepository
 
 
