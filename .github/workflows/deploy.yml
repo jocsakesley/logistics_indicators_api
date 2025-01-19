@@ -80,9 +80,11 @@ jobs:
         run: |
             ssh -i ~/.ssh/logistics_api.pem ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_DNS }} '
                 sudo yum update -y
-                sudo amazon-linux-extras install docker -y
+                sudo yum install docker -y
                 sudo service docker start
                 sudo usermod -a -G docker ec2-user
+                sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+                sudo chmod +x /usr/local/bin/docker-compose
                 cd ~/app
                 sudo docker-compose down
                 sudo docker-compose build --no-cache api
