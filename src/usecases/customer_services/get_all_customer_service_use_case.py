@@ -30,7 +30,7 @@ class GetAllCustomerServiceUseCase:
                         ],
                 "total_por_pagina": len(customer_services)}
         if len(customer_services) >= int(limit):
-            data.update({"proxima_pagina": url_for('services.get_all_customer_services', 
+            data.update({"proxima_pagina": url_for('customer_services.get_all_customer_services', 
                                                 limit=limit,
                                                 offset=new_offset,
                                                 **dict_args)})
