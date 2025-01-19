@@ -1,0 +1,54 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  AWS_REGION: us-east-1 # Altere para sua região
+  EC2_INSTANCE_IP: 54.90.67.241 # Substitua pelo IP público da sua EC2
+  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  REMOTE_USER: ec2-user # Altere se necessário
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: 'arn:aws:iam::398306423585:role/github-actions-role'
+          aws-region: ${{ env.AWS_REGION }}
+
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ env.EC2_INSTANCE_IP }} >> ~/.ssh/known_hosts
+      
+      - name: Create deployment package
+        run: |
+          tar -czf app.tar.gz ./* 
+            
+      - name: Copy files to EC2
+        run: |
+            ssh ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_IP }} 'mkdir -p ~/app'
+            scp app.tar.gz ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_IP }}:~/app/
+            ssh ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_IP }} '
+            cd ~/app
+            tar -xzf app.tar.gz
+            rm app.tar.gz
+            '
+
+      - name: Deploy application
+        run: |
+            ssh ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_IP }} '
+                cd ~/app
+                sudo docker-compose down
+                sudo docker-compose build --no-cache api
+                sudo docker-compose up -d
+            '
