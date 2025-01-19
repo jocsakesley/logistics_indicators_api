@@ -13,7 +13,6 @@ env:
   AWS_REGION: us-east-1
   EC2_INSTANCE_DNS: ec2-54-90-67-241.compute-1.amazonaws.com
   REMOTE_USER: ec2-user
-  SECRET_NAME: prod/ec2/ssh-key
 
 jobs:
   deploy:
@@ -28,18 +27,11 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
           audience: sts.amazonaws.com
 
-      - name: Get SSH key from Secrets Manager
-        run: |
-          mkdir -p ~/.ssh
-          aws secretsmanager get-secret-value --secret-id ${{ env.SECRET_NAME }} \
-            --query 'SecretString' --output text > ~/.ssh/logistics_api.pem
-          chmod 600 ~/.ssh/logistics_api.pem
-
       - name: Setup SSH
         run: |
-          ssh-keyscan -H ${{ env.EC2_INSTANCE_DNS }} >> ~/.ssh/known_hosts
-          eval `ssh-agent -s`
-          ssh-add ~/.ssh/logistics_api.pem
+          mkdir -p ~/.ssh
+          echo "${{ env.SSH_PRIVATE_KEY }}" > ~/.ssh/logistics_api.pem
+          chmod 600 ~/.ssh/logistics_api.pem
       
       - name: Create deployment package
         run: |
@@ -47,7 +39,7 @@ jobs:
             
       - name: Copy files to EC2
         run: |
-            ssh ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_IP }} 'mkdir -p ~/app'
+            ssh -i ~/.ssh/logistics_api.pem ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_IP }} 'mkdir -p ~/app'
             scp app.tar.gz ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_IP }}:~/app/
             ssh ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_IP }} '
             cd ~/app
