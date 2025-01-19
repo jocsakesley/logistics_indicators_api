@@ -4,11 +4,15 @@ on:
   push:
     branches: [ feature/deployment ]
 
+permissions:
+  id-token: write
+  contents: read
+
 env:
-  AWS_REGION: us-east-1 # Altere para sua região
-  EC2_INSTANCE_IP: 54.90.67.241 # Substitua pelo IP público da sua EC2
+  AWS_REGION: us-east-1
+  EC2_INSTANCE_IP: 54.90.67.241
   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-  REMOTE_USER: ec2-user # Altere se necessário
+  REMOTE_USER: ec2-user
 
 jobs:
   deploy:
@@ -21,7 +25,7 @@ jobs:
         with:
           role-to-assume: 'arn:aws:iam::398306423585:role/github-actions-role'
           aws-region: ${{ env.AWS_REGION }}
-
+          audience: sts.amazonaws.com
 
       - name: Setup SSH
         run: |
