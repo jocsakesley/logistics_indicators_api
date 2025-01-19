@@ -30,9 +30,11 @@ jobs:
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/logistics_api.pem
+          chmod 600 ~/.ssh/logistics_api.pem
           ssh-keyscan -H ${{ env.EC2_INSTANCE_IP }} >> ~/.ssh/known_hosts
+          eval `ssh-agent -s`
+          ssh-add ~/.ssh/logistics_api.pem
       
       - name: Create deployment package
         run: |
