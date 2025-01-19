@@ -1,7 +1,7 @@
 
 from datetime import timedelta
 import os
-from flask import Flask, request
+from flask import Flask, json, request
 from flask_jwt_extended import verify_jwt_in_request
 
 from src.infra.jwt.jwt import jwt
@@ -40,6 +40,21 @@ app = create_app()
     
 #     if request.endpoint and request.endpoint not in public_endpoints:
 #         verify_jwt_in_request()
+from werkzeug.exceptions import HTTPException
+
+@app.errorhandler(HTTPException)
+def handle_exception(e):
+    """Return JSON instead of HTML for HTTP errors."""
+    # start with the correct headers and status code from the error
+    response = e.get_response()
+    # replace the body with JSON
+    response.data = json.dumps({
+        "code": e.code,
+        "name": e.name,
+        "description": e.description,
+    })
+    response.content_type = "application/json"
+    return response
 
 if __name__ == "__main__":
     app.run(debug=True)
