@@ -30,35 +30,7 @@ jobs:
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          echo "-----BEGIN PRIVATE KEY-----
-          MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCMOIFwEMQqPPe5
-          BFrrE0DB4P92bugj/kzNEgGq803W5RDHJAztY58BVun9JsFhX49el5ZdfEvNOKPw
-          IfIlWCtsDrImEp7if+eg/jhfDnUIDy0H7TIb4lyFneF6rulfvfErGjsi9d7AQVlL
-          vblEZGqydeb8DhBL4xBEh65RTr9WD/wzVDjG6TA5VHXYod4/I0ifaH0rxdMLUIR0
-          CEk+z2cFlJSJxrJYCZeJJX1fvnlZUsFc159DIHZgkWS1hGp61AJcQBXRQu46bwPV
-          m6R1vf4v+BeSf2CZOSld49VsMj2EJNp+FNqgNJeHxzkxXngaMX7MRbalq5iiRYm3
-          FU9KOkSJAgMBAAECggEABoyHkBk6XjonfEDNscO+DygP6mNC7JZulhfYk9hF+wrL
-          Ci/++hHgbea2KjyGhOKajrmP/GkHHcw+zOL6/R9FdOgpTiGpwcylP/XLonXphaE2
-          0lNT1y1O8q8lZi5X6EC17DRPDYKT/yD2N5VCe0Ug3hmnWn+aJ38xBfBb1gCSa2Wl
-          Rjroarktw2ATA1twJi+hX/6S3TUd6Aa2Eq3tUSuCUSSz2Ni39gxLcaouS4FqA1fn
-          3YgJlZ+Ad+czQ/m3Sh37Kws58qqcKKpKyoWqnAwYESgoyaF0E1n8KdhSQsFHVO7z
-          8huX6JlWNn1GngcV8b1YBwEu9MYbejsp5AOWCyAPoQKBgQDDOaLCYs6pS7YYs4S8
-          cf62wPxF7eHRFuqv9M/2kAUHx3nqwdU24PC3DO4ehqzluLcxCrLJXJg/NpJH9YFK
-          XJGL7vSJEz+x2gv37yPDAoOdqIlYgSohitnuMBm3yG2JnNM60gP7FrllxcTmKYfP
-          SnuXnRfLJUVUiFcwdiFLu6p94QKBgQC331J12MysXy3HJi8qYnOx7CSyn5xXwOOR
-          nje6NLI5IjBeG2ggOihBlG3SMAW66jQxXh9ZAf0poiWSI8KpXmV7eXEPsbPr5+m8
-          XgehPc8tX/1ZypaEgD+CySJ1SLogPz0PL3yLAa1kT0AswzgLscars0PgsfWGOAHj
-          b/ARVtSLqQKBgQDDMHwX6FyCDe3J8qsTEtK9/GP+suHlgQky1g2bktFEvt+ZpSU9
-          kld6XZYytSpnIHEgunaZN1gNU82b3s3fAICRLWAXMUSs2LrAsLvLvVbEqf5wm+v4
-          z3AnYrZD90P1o/PZyqMqR8UkCUFdckaULf82Tl28wc34v7yU+nc91iuXYQKBgDCZ
-          XEg9t0tQFN9wXkMLppy+V6zGtyISn5ObiAs1Zm3ndXVKNSlfdchvnN9TRhBzWrw5
-          rntuJSXd76RCw27Uvmn2XUXSqEWQFJ1vFQEvPxU1K9eRzlrTMvY0h2EMifWAAXmE
-          CZ0MInJC6Clsp+GfaW10glpfbw+8ufMNYRyUILWRAoGBAJC75DF5W7tJ2h1p8G8y
-          VnlI4VLxE9E3gGoxCmjdtqWLQUvuU4YmVJ3mlrQIIdMDeNtWiXTL+ti+zqfuMD+m
-          8CxEm2Z3Z5ArBcIQ8HkMsNHjHIa+bq6lVpBEvVoc5uuNDgt8ac7EzzGcszugZcdT
-          lg5UzJEGfiS/s5okvJ/2klKX
-          -----END PRIVATE KEY-----
-          " | tr -d '\r' > ~/.ssh/logistics_api.pem
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' > ~/.ssh/logistics_api.pem
           chmod 600 ~/.ssh/logistics_api.pem
           ssh-keyscan -H ${{ env.EC2_INSTANCE_DNS }} >> ~/.ssh/known_hosts
           eval `ssh-agent -s`
