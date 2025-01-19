@@ -32,8 +32,8 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           aws secretsmanager get-secret-value --secret-id ${{ env.SECRET_NAME }} \
-            --query 'SecretString' --output text > ~/.ssh/key.pem
-          chmod 600 ~/.ssh/key.pem
+            --query 'SecretString' --output text > ~/.ssh/logistics_api.pem
+          chmod 600 ~/.ssh/logistics_api.pem
 
       - name: Setup SSH
         run: |
