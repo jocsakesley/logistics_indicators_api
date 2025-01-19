@@ -39,7 +39,8 @@ jobs:
             
       - name: Copy files to EC2
         run: |
-            ssh -i ~/.ssh/logistics_api.pem ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_DNS }} 'mkdir -p ~/app'
+            ssh -i ~/.ssh/logistics_api.pem ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_DNS }} 
+            mkdir -p ~/app
             scp app.tar.gz ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_DNS }}:~/app/
             ssh ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_DNS }} '
             cd ~/app
