@@ -1,6 +1,7 @@
 
 from datetime import timedelta
 import os
+from dotenv import load_dotenv
 from flask import Flask, json, request
 from flask_jwt_extended import verify_jwt_in_request
 
@@ -10,6 +11,8 @@ from src.infra.routes.customer_services_routes import cs_bp
 from src.infra.routes.customers_routes import customer_bp
 from src.infra.routes.indicators_routes import indicator_bp
 from src.infra.routes.auth_routes import auth_bp
+
+load_dotenv()
 
 app = Flask(__name__)
 
