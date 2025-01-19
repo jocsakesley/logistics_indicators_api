@@ -35,6 +35,7 @@ jobs:
           ssh-keyscan -H ${{ env.EC2_INSTANCE_IP }} >> ~/.ssh/known_hosts
           eval `ssh-agent -s`
           ssh-add ~/.ssh/logistics_api.pem
+          cat ˜/.ssh/logistics_api.pem
       
       - name: Create deployment package
         run: |
