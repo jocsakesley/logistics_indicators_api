@@ -21,3 +21,13 @@ class FilterClientIdException(Exception):
     def __init__(self, message):
         self.message = message
         super().__init__(self.message)
+
+class IncompletedDataException(Exception):
+    def __init__(self, message):
+        self.message = message
+        super().__init__(self.message)
+        
+class ExistentFieldException(Exception):
+    def __init__(self, message):
+        self.message = message
+        super().__init__(self.message)

@@ -1,9 +1,9 @@
 
 from flask import jsonify
-import marshmallow
-import sqlalchemy
+from marshmallow.exceptions import ValidationError
+from sqlalchemy.exc import IntegrityError
 from src.controllers.abstract_controller import AbstractController
-from src.entities.entities import Client
+from src.entities.entities import Customer
 from src.models.client_model import CustomerModel
 from src.usecases.customers.add_customer_use_case import AddCustomerUseCase
 
@@ -14,12 +14,12 @@ class AddCustomerController(AbstractController):
     
     def handle(self, *args, **kwargs):
         try:
-            schema = Client()
-            customer_schema = schema.load(kwargs.get("request")) 
+            customer = Customer()
+            customer_schema = customer.load(kwargs.get("request")) 
             customer_model = CustomerModel(**customer_schema)  
             self.add_customer_use_case.execute(customer_model)
-        except marshmallow.exceptions.ValidationError as e:
+        except ValidationError as e:
             return jsonify(e.messages), 400
-        except sqlalchemy.exc.IntegrityError:
+        except IntegrityError:
             return jsonify({'error': 'Email already exists'}), 409
         return jsonify(customer_model.to_dict()), 201

@@ -10,8 +10,8 @@ class CustomerServiceModel(BaseModel):
     __tablename__ = 'customer_services'
 
     id = Column(Integer, primary_key=True)
-    id_cliente = Column(Integer, ForeignKey('clients.id'), nullable=True, name="id_cliente")
-    client = relationship('CustomerModel', back_populates='services')
+    id_cliente = Column(Integer, ForeignKey('customers.id'), nullable=True, name="id_cliente")
+    customer = relationship('CustomerModel', back_populates='customer_services')
     angel = Column(String(50))
     polo = Column(String(50))
     data_limite = Column(Date)

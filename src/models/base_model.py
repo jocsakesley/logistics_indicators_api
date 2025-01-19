@@ -11,7 +11,6 @@ class BaseModel(Base):
     def to_dict(self) -> dict:
         pass
 
-    @abstractmethod
     def load_by_file(self, *args, **kwargs) -> dict:
         pass
 
