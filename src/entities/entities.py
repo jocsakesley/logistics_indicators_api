@@ -3,16 +3,16 @@
 from marshmallow import Schema, fields
 
 
-class Client(Schema):
+class Customer(Schema):
     nome = fields.Str(required=True)
     email = fields.Email(required=True, unique=True)
     telefone = fields.Str()
     
 
-class ClientResponse(Client):
+class CustomerResponse(Customer):
     id = fields.Int()
 
-class Service(Schema):
+class CustomerService(Schema):
     id_cliente = fields.Int(required=True)
     angel = fields.Str(required=True)
     polo = fields.Str(required=True)
@@ -25,7 +25,17 @@ class Service(Schema):
                                   'invalid': 'Date must be in the format YYYY-MM-DD HH:MM:SS'
                                   })
 
-class ServiceResponse(Service):
+class CustomerServiceResponse(CustomerService):
     id = fields.Int()
+
+class UserLogin(Schema):
+    username = fields.Str(required=True)
+    password = fields.Str(required=True)
+
+class User(UserLogin):
+    username = fields.Str(required=True)
+    email = fields.Email(required=True)
+    password = fields.Str(required=True)
+    
 
 

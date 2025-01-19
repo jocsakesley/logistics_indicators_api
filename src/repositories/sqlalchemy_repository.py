@@ -29,9 +29,9 @@ class SqlAlchemyRepository(AbstractRepository):
             self.db.rollback()
             raise e
       
-    def get(self, id):
+    def get(self, **kwargs):
         try:
-            result = self.db.query(self.model).filter_by(id=id).first()
+            result = self.db.query(self.model).filter_by(**kwargs).first()
         except Exception as e:
             raise e
         return result

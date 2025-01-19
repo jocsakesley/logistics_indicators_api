@@ -3,13 +3,13 @@ from sqlalchemy.orm import relationship
 from src.models.base_model import BaseModel
 
 class CustomerModel(BaseModel):
-    __tablename__ = 'clients'
+    __tablename__ = 'customers'
 
     id = Column(Integer, primary_key=True)
     nome = Column(String(50))
     email = Column(String(50), unique=True)
     telefone = Column(String(11), nullable=True)
-    services = relationship('CustomerServiceModel', back_populates='client')
+    customer_services = relationship('CustomerServiceModel', back_populates='customer')
 
     def __init__(self, nome=None, email=None, telefone=None):
         self.nome = nome
@@ -18,7 +18,7 @@ class CustomerModel(BaseModel):
 
 
     def __repr__(self):
-        return f'<Client {self.nome}>'
+        return f'<Customer {self.nome}>'
     
     def load_by_file(self, id, nome, email, telefone):
         self.id = id

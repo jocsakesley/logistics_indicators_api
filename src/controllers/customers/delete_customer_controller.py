@@ -1,7 +1,6 @@
 
 
 from flask import jsonify
-from src.entities.entities import Client
 from src.usecases.exceptions import CustomerDoesNotExistException
 from src.controllers.abstract_controller import AbstractController
 from src.usecases.customers.delete_customer_use_case import DeleteCustomerUseCase

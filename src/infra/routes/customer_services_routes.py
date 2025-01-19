@@ -19,7 +19,7 @@ from src.usecases.customer_services.get_all_customer_service_use_case import Get
 from src.usecases.customer_services.load_customer_services_use_case import LoadCustomerServicesUseCase
 
 
-cs_bp = Blueprint('services', __name__)
+cs_bp = Blueprint('customer_services', __name__)
 
 
 @cs_bp.get('/services')
@@ -52,7 +52,7 @@ def create_service():
 def update_service(id):
     repository = SqlAlchemyRepository(db.DbSession, CustomerServiceModel)
     use_case = UpdateCustomerServiceUseCase(repository)
-    return UpdateCustomerServiceController(use_case).handle(request=request.get_json(), customer_service_id=customer_service_id)
+    return UpdateCustomerServiceController(use_case).handle(request=request.get_json(), id=id)
 
 
 @cs_bp.post('/services/batch')

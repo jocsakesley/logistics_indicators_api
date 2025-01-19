@@ -2,6 +2,7 @@
 
 from queue import Queue
 from flask import Blueprint, request
+from flask_jwt_extended import jwt_required
 from src.models.client_model import CustomerModel
 from src.repositories.sqlalchemy_repository import SqlAlchemyRepository
 from src.controllers.customers.load_customers_controller import LoadCustomersController
