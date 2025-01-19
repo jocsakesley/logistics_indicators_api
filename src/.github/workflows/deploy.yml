@@ -2,7 +2,7 @@ name: Deploy to EC2
 
 on:
   push:
-    branches: [ main ]
+    branches: [ feature/deployment ]
 
 env:
   AWS_REGION: us-east-1 # Altere para sua região
