@@ -81,7 +81,7 @@ jobs:
 
       - name: Deploy application
         run: |
-            ssh -i ~/.ssh/logistics.pem ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_IP }}'
+            ssh -i ~/.ssh/logistics.pem ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_IP }} '
                 cd ~/app
                 sudo snap install docker
                 sudo apt install docker-compose
