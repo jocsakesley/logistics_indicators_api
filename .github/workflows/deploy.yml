@@ -81,7 +81,7 @@ jobs:
 
       - name: Deploy application
         run: |
-            ssh -i ~/.ssh/logistics_api.pem ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_IP }} '
+            ssh -i ~/.ssh/logistics_api.pem ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_IP }}'
                 cd ~/app
                 sudo docker-compose down
                 sudo docker-compose build --no-cache api
