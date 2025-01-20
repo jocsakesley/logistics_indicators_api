@@ -83,8 +83,10 @@ jobs:
         run: |
             ssh -i ~/.ssh/logistics.pem ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_IP }} '
                 cd ~/app
+                sudo apt update -y
                 sudo snap install docker -y
-                sudo apt install docker-compose -y
+                sudo apt install -y python3-pip
+                sudo pip3 install "docker-compose~=2.15" 
                 sudo docker-compose down
                 sudo docker-compose build --no-cache api
                 sudo docker-compose up -d
