@@ -83,8 +83,8 @@ jobs:
         run: |
             ssh -i ~/.ssh/logistics.pem ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_IP }} '
                 cd ~/app
-                sudo snap install docker
-                sudo apt install docker-compose
+                sudo snap install docker -y
+                sudo apt install docker-compose -y
                 sudo docker-compose down
                 sudo docker-compose build --no-cache api
                 sudo docker-compose up -d
