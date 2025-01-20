@@ -64,7 +64,7 @@ jobs:
       
       - name: Create deployment package
         run: |
-            tar --warning=no-file-changed -czf app.tar.gz .
+            tar --exclude='app.tar.gz' -czf app.tar.gz .
             
       - name: Copy files to EC2
         run: |
