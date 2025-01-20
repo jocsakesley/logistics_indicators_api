@@ -11,7 +11,7 @@ permissions:
 
 env:
   AWS_REGION: us-east-1
-  EC2_INSTANCE_DNS: ec2-54-145-32-149.compute-1.amazonaws.com
+  EC2_INSTANCE_DNS: ec2-34-228-65-212.compute-1.amazonaws.com
   REMOTE_USER: ec2-user
 
 jobs:
@@ -82,14 +82,10 @@ jobs:
       - name: Deploy application
         run: |
             ssh -i ~/.ssh/logistics_api.pem ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_DNS }} '
-                sudo yum update -y
-                sudo yum install docker -y
+                sudo apt-get update -y
+                sudo apt-get install docker -y
                 sudo service docker start
-                sudo usermod -a -G docker ec2-user
-                sudo yum install -y python3-pip
-                sudo yum remove python3-requests
-                sudo pip install requests
-                sudo pip3 install docker-compose
+                sudo apt-get install docker-compose-plugin
                 cd ~/app
                 sudo docker-compose down
                 sudo docker-compose build --no-cache api
