@@ -9,7 +9,7 @@ services:
     ports:
       - 8000:8000
     environment:
-      DATABASE_URL: postgresql+psycopg2://jocsa:postgres@$db:5432/logistcs
+      DATABASE_URL: postgresql+psycopg2://jocsa:postgres@db:5432/logistcs
       JWT_SECRET_KEY: my-secret
     depends_on:
       - db
