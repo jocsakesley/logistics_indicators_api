@@ -42,7 +42,7 @@ jobs:
       
       - name: Create ECS context
         run: |
-          docker context create ecs logistics-ecs
+          docker context create ecs logistics_ecs
 
       - name: Deploy to ECS
         run: |
