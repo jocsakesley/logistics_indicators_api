@@ -1,10 +1,11 @@
-FROM python:3.11-slim
+FROM python:3.11-slim-buster
 
 WORKDIR /app
 
 COPY ./requirements.txt /app/
 
-RUN pip3 --no-cache-dir install -r requirements.txt
+RUN pip --no-cache-dir install -r requirements.txt && \
+    pip3 install gunicorn
 
 COPY . /app
 

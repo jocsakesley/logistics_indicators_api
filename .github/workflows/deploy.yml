@@ -27,63 +27,21 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
           audience: sts.amazonaws.com
 
-      - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "-----BEGIN RSA PRIVATE KEY-----
-          MIIEpAIBAAKCAQEA7MEloidOZz2o3I/iQKjQMaFfdTKbteqoAZqiI0/8y4WeTKaS
-          jLlSJ2uUu2eBA7qtaG+7Fh+LlaQY29LuWMQYbaUTUTpGPylBvV7r/zvHCduJzspI
-          9O+hp4El0tA6Oi86CL01ICeDclg7JaURzemlH3yJELaHTJAMrzGmUtiNLra/3pjg
-          B0zP6RLw1I44WNPkgHGURr8DIFLC+HQiyucaWfYMHFTXu85PSAPGYchnSdcXtlEa
-          bnbiSShShUkwYPrFXxSHJkTgkyqEmwkaZcGs4K624iVEueSXa72/uUVu4F30l+yc
-          Pw+KhOndzzC42HQXmZ1p/hjK5whoD01DgK2TZwIDAQABAoIBAE28BS0+lqGTPzRc
-          Eb+FLgZ9o6gJW9LZHxyXtxC9HJV+Y8FrF8cYuf6zdfwqOdQNoQ4fUWAsL1qMrJTQ
-          pu2CRTsK7lLHPXVTiIAzAG2nJOz5pj+9b0LswzkKUG7ta5DbHMTtytmp36DVk2YC
-          0tu3ET5LV32jUL00ttV3CdM9wu1I9eQ8tuaj8Jy7pZaHh/O7SqX2K/A/Z9/rWi+l
-          F3Z/4R8pON2OItmqVnaQiOgfp7Tfb0dp0pG0BU4z5zZwsl/HiTZxIvlgBi2ATbFA
-          kL2eGxkChibYEIQtfIqevcLSG8T3ASbzfywqiXsk/++fHyirJ2MhlBfcidekTzL8
-          smJRkwECgYEA/1koYW3neevrp9QPjwrI9ulUHpyiWaf8AMY9hCVYBzAM7hf+2+QW
-          tRVOBUzCRl9+5+VQ4BscseNw7j0LZZHl7l8H3ITNmMxjLKj/AuvEcalBPdPrN7GC
-          JhFmz4kDaTDzlFIZRQrndtd046G2ZQWqtIKX0u9UwMeAjc8VYk4xLcECgYEA7VvX
-          Gsp5Ee4QoSIH8nrzdnBMGNzfV+Nr1r4JItnp4JzhGS1wpuySB6//Wv91uYARFqHa
-          D/pU8T7Meu4WPKJHP2KHYRngK3ecNuy03I9w+xQM5yJgszUX72N8K96AzsF9YtfR
-          aW8ZCxFi222pW+Rd4o0ZokV183gXGz2gP27sWycCgYEAnxprmcGEQKiqbikpBKTg
-          sVCTVHuegSS1Vbov7F3kap4bAGO9LkABkhVTRuQcDQNFrLJq4SijiYfA/wDUUBZH
-          YW6fFF0/SdzYUqR+ONC012lxuFeKMWqOQLAJEnk5wdp5e0poamev75GySH+jiXCt
-          e8n/VbRAZ9onFLUaiuVTqUECgYAuM+NiNqlsgQ/BndM4MxCzLFbTvCLJg95Y9bLn
-          ks2AyGjUstCr3X7reinVt8Zdrn0lD6pX0922/AdnonK3qMr/nplFoHjPXUAOPPNT
-          v6Q5a4S7dSinmZ0oHxBrpasjE+zpUaNUx6hzTBYXKnh+B6zyzY6A1M6J7wVoaw2H
-          a3scnwKBgQCZaqHNFSagT6uO21BpwtuCkndEPyYEk5NCyRY8cs8WPUbTQJInU7cp
-          lwMkRThwif1iIfZe3Nuu5DZ85E/xQ7p/2q0F6w+JcBgUcbeohEyvJEFYxM5Yb+l8
-          4SaQqr4Hx2pdJCQRSLv7l54s0Q9Of58eaTJIQuS0AFqKftVbstlGvw==
-          -----END RSA PRIVATE KEY-----" | tr -d '\r' > ~/.ssh/logistics.pem
-          chmod 600 ~/.ssh/logistics.pem
-          ssh-keyscan -H ${{ env.EC2_INSTANCE_IP }} >> ~/.ssh/known_hosts
-          eval `ssh-agent -s`
-          ssh-add ~/.ssh/logistics.pem
-      
-      - name: Create deployment package
-        run: |
-            tar -czf app.tar.gz ./*
-            
-      - name: Copy files to EC2
-        run: |
-            ssh -i ~/.ssh/logistics.pem ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_IP }} '
-                rm -rf ~/app
-                mkdir -p ~/app
-            '
-            scp -i ~/.ssh/logistics.pem app.tar.gz ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_IP }}:~/app/
-            ssh -i ~/.ssh/logistics.pem ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_IP }} '
-                cd ~/app
-                tar -xzf app.tar.gz
-                rm app.tar.gz
-            '
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Deploy application
+      - name: Build and push Docker image
         run: |
-            ssh -i ~/.ssh/logistics.pem ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_IP }} '
-                cd ~/app
-                sudo docker-compose -f docker-compose.deploy.yml down
-                sudo docker-compose -f docker-compose.deploy.yml build --no-cache api
-                sudo docker-compose -f docker-compose.deploy.yml up -d
-            '
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/myapp:latest .
+          docker push ${{ secrets.DOCKER_USERNAME }}/myapp:latest
+      
+      - name: Create ECS context
+        run: |
+          docker context create ecs logistics-ecs --profile default
+
+      - name: Deploy to ECS
+        run: |
+          docker --context logistics-ecs compose -f docker-compose.prd.yml up
