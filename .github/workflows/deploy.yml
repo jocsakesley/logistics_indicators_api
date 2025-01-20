@@ -11,8 +11,8 @@ permissions:
 
 env:
   AWS_REGION: us-east-1
-  EC2_INSTANCE_DNS: ec2-34-228-65-212.compute-1.amazonaws.com
-  REMOTE_USER: ec2-user
+  EC2_INSTANCE_IP: 3.208.21.4
+  REMOTE_USER: ubuntu
 
 jobs:
   deploy:
@@ -31,36 +31,36 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           echo "-----BEGIN RSA PRIVATE KEY-----
-          MIIEowIBAAKCAQEAtXyEAoyVOoYrt1xE1+jKd7G4jtcgmq3ZXGrYAOuuvvr5CI/c
-          Z9qwWo8zf3a6PS3jU/upzMdvHwXxNoTr1Ck3XgxnzzaVvDNNKGRgpA0qd18nmIIq
-          DbUSh+9CLvHl8czyF3TaKa1KFyx58RlbTCpJE9ZY75TSGqLPlo7/pwyUlWuU6m2v
-          GSEC/sAbIvZ8dY2g3p+ooPJNCXZEmgzkAihCd1U6UmLOI7ZYIq4cBMGh6NyY07RT
-          rCS20UUNTRn2LD1tlVhoR2jfmRa6eihnofA7u7YOg/W/x8fT8on9/imvPFh9gJA7
-          ip+GRzNnmWxEkBEQYEFn1jy798msdE6NWaskcwIDAQABAoIBABU+1lVWD8IiIsv8
-          STLdVZZdf7V5CaAR6fgfqdmxvWsuBikybiLaPvra+LRbOcIftRUHyQDn9+Ix1+MB
-          /HmBubGQ0jY3tZ+qgcXQul96CxaeVQxNcI7aO6keISlNuBVuYIjObRuj5aCA3GWV
-          ClMIQDXKSe8CBPaJSLPfWZ48osg69WFCeDsRSNQkYSTz2YKoPl4BPelkUzwFATHE
-          yLPh+LAkUH19YtSLy02NmWKaMu0NUjXoBVuV2ahso35iRApXavSzNGCnpoi0oG8v
-          E0gI3fNu7n9tMke5O7YOn9Nqx3inQ1gsqQAEPChMMuQyzSc9XBPK0PkzTenxChy5
-          hyzCI8ECgYEA3G/qnCoBpbLNS44RBcue9Q3pB3IaJ4xymNy6wIB3ZD/4Etct0ogO
-          60sZV1KNNUjAR/6meT0+CpkF74E2XN2hOtDafDuQ5NdGiWF326dDtLKRkf4b9y1f
-          hWueabfp87c4MQ10GcVF2yCMVeSoT82qCFgsPPQCyRo77J1Y9odomU8CgYEA0sPt
-          RKsARNLZRlPctKURm1K6gMt3W6qnZqRLpkmLE4jhzf6dWPllwwUy1cYbJaSj8sKP
-          er8k9nzoft0MXEo5QILihjYnSgcdCKkfg3d3NKxZi0J1Fqde2VyqP5W2KNpS4n3J
-          m1d2F6VwgYrun0TaxlMhjg2YeggIaJ+Ujt7DMZ0CgYB0d2UbcU5Bf8DcBImV6Elp
-          7BmM54pODvSVMzowby+lde7Z9XquW1iWlK0k5+bXmkKNR0wpjmPzMXpjWn+gfTCs
-          ZKCrNsWNQvhvqWGsWil5lUc4PWwFIqHvWjbuYE9phwpXUGZhH0uTRRUgZJlQ4LbP
-          hdaJtdqq6gNzNodEabKoHQKBgQCu1vWXBzv72+V+H8dw25ZVgTVR7nefRVwFG7nd
-          whhrJhwbZGJnEszGESPwjpyqh3+xvJCFxNcG2uuLghfk33XK/EiqCXZiRLBjJNkN
-          mCb9PRQzH/g9yK44JlTc1nb8QNCNLsf144IFb6p67COzX80UxJWLX9/jK5K+J9N3
-          CXhnSQKBgARl5U4XcO/DgzSJuGw2FF7VsPwIgjxPO5erJk3VZYjuo98GwIHWrAO7
-          7yCW+C6rM8UhLoeYaLPQDxXbfkYqnKh1J4D/ZvomCoaAinIAbyHGHcYZbsMB5aVj
-          BF3toclM9HYQ1z4mh9qtyVWtqzWtsI0NPMYPQEebo0ZXRnGoWOS4
-          -----END RSA PRIVATE KEY-----" | tr -d '\r' > ~/.ssh/logistics_api.pem
-          chmod 600 ~/.ssh/logistics_api.pem
-          ssh-keyscan -H ${{ env.EC2_INSTANCE_DNS }} >> ~/.ssh/known_hosts
+          MIIEpAIBAAKCAQEA7MEloidOZz2o3I/iQKjQMaFfdTKbteqoAZqiI0/8y4WeTKaS
+          jLlSJ2uUu2eBA7qtaG+7Fh+LlaQY29LuWMQYbaUTUTpGPylBvV7r/zvHCduJzspI
+          9O+hp4El0tA6Oi86CL01ICeDclg7JaURzemlH3yJELaHTJAMrzGmUtiNLra/3pjg
+          B0zP6RLw1I44WNPkgHGURr8DIFLC+HQiyucaWfYMHFTXu85PSAPGYchnSdcXtlEa
+          bnbiSShShUkwYPrFXxSHJkTgkyqEmwkaZcGs4K624iVEueSXa72/uUVu4F30l+yc
+          Pw+KhOndzzC42HQXmZ1p/hjK5whoD01DgK2TZwIDAQABAoIBAE28BS0+lqGTPzRc
+          Eb+FLgZ9o6gJW9LZHxyXtxC9HJV+Y8FrF8cYuf6zdfwqOdQNoQ4fUWAsL1qMrJTQ
+          pu2CRTsK7lLHPXVTiIAzAG2nJOz5pj+9b0LswzkKUG7ta5DbHMTtytmp36DVk2YC
+          0tu3ET5LV32jUL00ttV3CdM9wu1I9eQ8tuaj8Jy7pZaHh/O7SqX2K/A/Z9/rWi+l
+          F3Z/4R8pON2OItmqVnaQiOgfp7Tfb0dp0pG0BU4z5zZwsl/HiTZxIvlgBi2ATbFA
+          kL2eGxkChibYEIQtfIqevcLSG8T3ASbzfywqiXsk/++fHyirJ2MhlBfcidekTzL8
+          smJRkwECgYEA/1koYW3neevrp9QPjwrI9ulUHpyiWaf8AMY9hCVYBzAM7hf+2+QW
+          tRVOBUzCRl9+5+VQ4BscseNw7j0LZZHl7l8H3ITNmMxjLKj/AuvEcalBPdPrN7GC
+          JhFmz4kDaTDzlFIZRQrndtd046G2ZQWqtIKX0u9UwMeAjc8VYk4xLcECgYEA7VvX
+          Gsp5Ee4QoSIH8nrzdnBMGNzfV+Nr1r4JItnp4JzhGS1wpuySB6//Wv91uYARFqHa
+          D/pU8T7Meu4WPKJHP2KHYRngK3ecNuy03I9w+xQM5yJgszUX72N8K96AzsF9YtfR
+          aW8ZCxFi222pW+Rd4o0ZokV183gXGz2gP27sWycCgYEAnxprmcGEQKiqbikpBKTg
+          sVCTVHuegSS1Vbov7F3kap4bAGO9LkABkhVTRuQcDQNFrLJq4SijiYfA/wDUUBZH
+          YW6fFF0/SdzYUqR+ONC012lxuFeKMWqOQLAJEnk5wdp5e0poamev75GySH+jiXCt
+          e8n/VbRAZ9onFLUaiuVTqUECgYAuM+NiNqlsgQ/BndM4MxCzLFbTvCLJg95Y9bLn
+          ks2AyGjUstCr3X7reinVt8Zdrn0lD6pX0922/AdnonK3qMr/nplFoHjPXUAOPPNT
+          v6Q5a4S7dSinmZ0oHxBrpasjE+zpUaNUx6hzTBYXKnh+B6zyzY6A1M6J7wVoaw2H
+          a3scnwKBgQCZaqHNFSagT6uO21BpwtuCkndEPyYEk5NCyRY8cs8WPUbTQJInU7cp
+          lwMkRThwif1iIfZe3Nuu5DZ85E/xQ7p/2q0F6w+JcBgUcbeohEyvJEFYxM5Yb+l8
+          4SaQqr4Hx2pdJCQRSLv7l54s0Q9Of58eaTJIQuS0AFqKftVbstlGvw==
+          -----END RSA PRIVATE KEY-----" | tr -d '\r' > ~/.ssh/logistics.pem
+          chmod 600 ~/.ssh/logistics.pem
+          ssh-keyscan -H ${{ env.EC2_INSTANCE_IP }} >> ~/.ssh/known_hosts
           eval `ssh-agent -s`
-          ssh-add ~/.ssh/logistics_api.pem
+          ssh-add ~/.ssh/logistics.pem
       
       - name: Create deployment package
         run: |
@@ -68,12 +68,12 @@ jobs:
             
       - name: Copy files to EC2
         run: |
-            ssh -i ~/.ssh/logistics_api.pem ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_DNS }} '
+            ssh -i ~/.ssh/logistics.pem ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_IP }} '
                 rm -rf ~/app
                 mkdir -p ~/app
             '
-            scp -i ~/.ssh/logistics_api.pem app.tar.gz ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_DNS }}:~/app/
-            ssh -i ~/.ssh/logistics_api.pem ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_DNS }} '
+            scp -i ~/.ssh/logistics.pem app.tar.gz ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_IP }}:~/app/
+            ssh -i ~/.ssh/logistics.pem ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_IP }} '
                 cd ~/app
                 tar -xzf app.tar.gz
                 rm app.tar.gz
@@ -81,11 +81,7 @@ jobs:
 
       - name: Deploy application
         run: |
-            ssh -i ~/.ssh/logistics_api.pem ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_DNS }} '
-                sudo apt-get update -y
-                sudo apt-get install docker -y
-                sudo service docker start
-                sudo apt-get install docker-compose-plugin
+            ssh -i ~/.ssh/logistics_api.pem ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_IP }} '
                 cd ~/app
                 sudo docker-compose down
                 sudo docker-compose build --no-cache api
