@@ -42,7 +42,7 @@ jobs:
       
       - name: Create ECS context
         run: |
-          docker context create ecs logistics-ecs --profile default
+          docker context create ecs logistics-ecs
 
       - name: Deploy to ECS
         run: |
