@@ -39,10 +39,15 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/logistics:latest .
           docker push ${{ secrets.DOCKER_USERNAME }}/logistics:latest
+          name: Update docker-compose version
+      
+      - name: Update Docker compose
+        run: |
+          sudo curl -L https://raw.githubusercontent.com/docker/compose-cli/main/scripts/install/install_linux.sh | sudo sh
       
       - name: Create ECS context
         run: |
-          docker context create ecs logistics_ecs
+          sudo docker context create ecs logistics_ecs --default
 
       - name: Deploy to ECS
         run: |
