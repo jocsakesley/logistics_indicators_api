@@ -20,7 +20,7 @@ class LoginUseCase:
 
     def execute(self, user_login: dict):
 
-        user: BaseModel = self.repository.get(username=user_login.get("username"))
+        user: BaseModel = self.repository.filter_by(username=user_login.get("username"))
 
         if not user or not user.check_password(user_login.get("password")):
             return {'message': 'Bad credentials'}

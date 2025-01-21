@@ -9,9 +9,9 @@ class GetOneCustomerController:
     def __init__(self, get_one_customer_use_case: GetOneCustomerUseCase):
         self.get_one_customer_use_case = get_one_customer_use_case
     
-    def handle(self, *args, **kwargs):
+    def handle(self, id):
         try:
-            customer = self.get_one_customer_use_case.execute(**kwargs)
+            customer = self.get_one_customer_use_case.execute(id)
         except CustomerDoesNotExistException as e:
             return jsonify({'error': str(e)}), 404
         except Exception as e:
