@@ -53,6 +53,7 @@ class FileHandler:
                     if self.queue.empty():
                         end = time.time() - self.start
                         logger.info(f"Arquivo processado, encerrando Threads. Tempo passado desde o inicio: {end:.4f} segundos")
+
                         self.__remove_file()
                         break
     def __remove_file(self):

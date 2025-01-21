@@ -136,7 +136,7 @@ def test_filter_get_total(customer_service_model):
     request = MockRequest(args={"limit": 10, "offset": 10}, path="total")
     result = customer_service_use_case.execute(request)
     assert result == {'total': 3}
-
+    
 def test_load_customer_services_use_case(customer_service_model):
     repo = MockRepository(customer_service_model)
 
@@ -170,4 +170,3 @@ def test_load_customer_services_not_file(customer_service_model):
     with pytest.raises(ValueError):
         customer_service_use_case.execute(mockrequest, queue=Queue())
 
-        

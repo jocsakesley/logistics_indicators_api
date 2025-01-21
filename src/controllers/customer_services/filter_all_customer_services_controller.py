@@ -11,6 +11,7 @@ class FilterAllCustomerServiceController(AbstractController):
     def handle(self, request):
         try:
             result = self.filter_all_customer_service_use_case.execute(request)
+
         except Exception as e:
             return jsonify({'error': str(e)}), 500
         

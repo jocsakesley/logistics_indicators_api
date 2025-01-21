@@ -1,6 +1,5 @@
 
 
-
 class MockRepository:
     def __init__(self, model, exception=None):
         self.model = model
