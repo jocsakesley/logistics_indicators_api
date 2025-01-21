@@ -54,14 +54,15 @@ def create_service():
 
 @cs_bp.put('/services/<int:id>')
 def update_service(id):
-    repository = SqlAlchemyRepository(db.DbSession, CustomerServiceModel)
-    use_case = UpdateCustomerServiceUseCase(repository)
-    return UpdateCustomerServiceController(use_case).handle(request=request.get_json(), id=id)
+    customer_service_repository = SqlAlchemyRepository(db.DbSession, CustomerServiceModel)
+    customer_repository = SqlAlchemyRepository(db.DbSession, CustomerModel)
+    use_case = UpdateCustomerServiceUseCase(customer_service_repository, customer_repository)
+    return UpdateCustomerServiceController(use_case).handle(request=request, id=id)
 
 
 @cs_bp.post('/services/batch')
 def load_customer_services_thread():
     repository = SqlAlchemyRepository(db.DbSession, CustomerServiceModel)
     use_case = LoadCustomerServicesUseCase(repository)
-    return LoadCustomerServicesController(use_case).handle(file=request.files['file'], queue=Queue())
+    return LoadCustomerServicesController(use_case).handle(request=request, queue=Queue())
 

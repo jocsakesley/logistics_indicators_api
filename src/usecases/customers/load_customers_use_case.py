@@ -1,5 +1,6 @@
 
-from src.models.client_model import CustomerModel
+from queue import Queue
+from flask import Request
 from src.repositories.abstract_repository import AbstractRepository
 from src.usecases.file_handler_chunks import FileHandler
 
@@ -8,8 +9,8 @@ class LoadCustomersUseCase:
     def __init__(self, customer_repository: AbstractRepository):
         self.customer_repository = customer_repository
 
-    def execute(self, *args, **kwargs):
-        file = kwargs.get("file")
+    def execute(self, request: Request, queue: Queue):
+        file = request.files['file']
         if not file:
             raise ValueError("File is required")
         
@@ -18,4 +19,4 @@ class LoadCustomersUseCase:
         
         if file.content_type not in ["application/json", "text/csv"]:
             raise ValueError("Unsupported file type")
-        FileHandler(**kwargs, repository=self.customer_repository, model=CustomerModel)
+        FileHandler(file, queue, repository=self.customer_repository)
