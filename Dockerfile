@@ -10,4 +10,8 @@ RUN pip --no-cache-dir install -r requirements.txt && \
 COPY . /app
 
 
-ENTRYPOINT [ "gunicorn", "--bind", "0.0.0.0:8000", "src.main:app" ]
+ENTRYPOINT ["gunicorn", "--bind", "0.0.0.0:8000", \
+            "--access-logfile", "-", \
+            "--error-logfile", "-", \
+            "--log-level", "info", \
+            "src.main:app"]
