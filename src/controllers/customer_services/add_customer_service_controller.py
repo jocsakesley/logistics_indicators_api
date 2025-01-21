@@ -1,6 +1,6 @@
 
 
-from flask import jsonify, request
+from flask import Request, jsonify, request
 import marshmallow
 from sqlalchemy.exc import IntegrityError
 from src.controllers.abstract_controller import AbstractController
@@ -14,10 +14,10 @@ class AddCustomerServiceController(AbstractController):
     def __init__(self, add_customer_service_use_case: AddCustomerServiceUseCase):
         self.add_customer_service_use_case = add_customer_service_use_case
     
-    def handle(self, *args, **kwargs):
+    def handle(self, request: Request):
         try:
             customer_service = CustomerService()
-            customer_service_schema = customer_service.load(kwargs.get("request")) 
+            customer_service_schema = customer_service.load(request.get_json()) 
             customer_service_model = CustomerServiceModel(**customer_service_schema)  
             self.add_customer_service_use_case.execute(customer_service_model)
         except marshmallow.exceptions.ValidationError as e:

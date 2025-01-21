@@ -11,8 +11,10 @@ permissions:
 
 env:
   AWS_REGION: us-east-1
-  EC2_INSTANCE_DNS: ec2-54-145-32-149.compute-1.amazonaws.com
-  REMOTE_USER: ec2-user
+  EC2_INSTANCE_IP: 3.208.21.4
+  REMOTE_USER: ubuntu
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
 jobs:
   deploy:
@@ -27,71 +29,30 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
           audience: sts.amazonaws.com
 
-      - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "-----BEGIN RSA PRIVATE KEY-----
-          MIIEowIBAAKCAQEAtXyEAoyVOoYrt1xE1+jKd7G4jtcgmq3ZXGrYAOuuvvr5CI/c
-          Z9qwWo8zf3a6PS3jU/upzMdvHwXxNoTr1Ck3XgxnzzaVvDNNKGRgpA0qd18nmIIq
-          DbUSh+9CLvHl8czyF3TaKa1KFyx58RlbTCpJE9ZY75TSGqLPlo7/pwyUlWuU6m2v
-          GSEC/sAbIvZ8dY2g3p+ooPJNCXZEmgzkAihCd1U6UmLOI7ZYIq4cBMGh6NyY07RT
-          rCS20UUNTRn2LD1tlVhoR2jfmRa6eihnofA7u7YOg/W/x8fT8on9/imvPFh9gJA7
-          ip+GRzNnmWxEkBEQYEFn1jy798msdE6NWaskcwIDAQABAoIBABU+1lVWD8IiIsv8
-          STLdVZZdf7V5CaAR6fgfqdmxvWsuBikybiLaPvra+LRbOcIftRUHyQDn9+Ix1+MB
-          /HmBubGQ0jY3tZ+qgcXQul96CxaeVQxNcI7aO6keISlNuBVuYIjObRuj5aCA3GWV
-          ClMIQDXKSe8CBPaJSLPfWZ48osg69WFCeDsRSNQkYSTz2YKoPl4BPelkUzwFATHE
-          yLPh+LAkUH19YtSLy02NmWKaMu0NUjXoBVuV2ahso35iRApXavSzNGCnpoi0oG8v
-          E0gI3fNu7n9tMke5O7YOn9Nqx3inQ1gsqQAEPChMMuQyzSc9XBPK0PkzTenxChy5
-          hyzCI8ECgYEA3G/qnCoBpbLNS44RBcue9Q3pB3IaJ4xymNy6wIB3ZD/4Etct0ogO
-          60sZV1KNNUjAR/6meT0+CpkF74E2XN2hOtDafDuQ5NdGiWF326dDtLKRkf4b9y1f
-          hWueabfp87c4MQ10GcVF2yCMVeSoT82qCFgsPPQCyRo77J1Y9odomU8CgYEA0sPt
-          RKsARNLZRlPctKURm1K6gMt3W6qnZqRLpkmLE4jhzf6dWPllwwUy1cYbJaSj8sKP
-          er8k9nzoft0MXEo5QILihjYnSgcdCKkfg3d3NKxZi0J1Fqde2VyqP5W2KNpS4n3J
-          m1d2F6VwgYrun0TaxlMhjg2YeggIaJ+Ujt7DMZ0CgYB0d2UbcU5Bf8DcBImV6Elp
-          7BmM54pODvSVMzowby+lde7Z9XquW1iWlK0k5+bXmkKNR0wpjmPzMXpjWn+gfTCs
-          ZKCrNsWNQvhvqWGsWil5lUc4PWwFIqHvWjbuYE9phwpXUGZhH0uTRRUgZJlQ4LbP
-          hdaJtdqq6gNzNodEabKoHQKBgQCu1vWXBzv72+V+H8dw25ZVgTVR7nefRVwFG7nd
-          whhrJhwbZGJnEszGESPwjpyqh3+xvJCFxNcG2uuLghfk33XK/EiqCXZiRLBjJNkN
-          mCb9PRQzH/g9yK44JlTc1nb8QNCNLsf144IFb6p67COzX80UxJWLX9/jK5K+J9N3
-          CXhnSQKBgARl5U4XcO/DgzSJuGw2FF7VsPwIgjxPO5erJk3VZYjuo98GwIHWrAO7
-          7yCW+C6rM8UhLoeYaLPQDxXbfkYqnKh1J4D/ZvomCoaAinIAbyHGHcYZbsMB5aVj
-          BF3toclM9HYQ1z4mh9qtyVWtqzWtsI0NPMYPQEebo0ZXRnGoWOS4
-          -----END RSA PRIVATE KEY-----" | tr -d '\r' > ~/.ssh/logistics_api.pem
-          chmod 600 ~/.ssh/logistics_api.pem
-          ssh-keyscan -H ${{ env.EC2_INSTANCE_DNS }} >> ~/.ssh/known_hosts
-          eval `ssh-agent -s`
-          ssh-add ~/.ssh/logistics_api.pem
-      
-      - name: Create deployment package
-        run: |
-          tar -czf app.tar.gz ./* 
-            
-      - name: Copy files to EC2
-        run: |
-            ssh -i ~/.ssh/logistics_api.pem ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_DNS }} '
-                rm -rf ~/app
-                mkdir -p ~/app
-            '
-            scp -i ~/.ssh/logistics_api.pem app.tar.gz ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_DNS }}:~/app/
-            ssh -i ~/.ssh/logistics_api.pem ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_DNS }} '
-                cd ~/app
-                tar -xzf app.tar.gz
-                rm app.tar.gz
-            '
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Deploy application
+      - name: Deploy to ECS using Docker
+        env:
+          IMAGE_TAG: ${{ github.sha }}
         run: |
-            ssh -i ~/.ssh/logistics_api.pem ${{ env.REMOTE_USER }}@${{ env.EC2_INSTANCE_DNS }} '
-                sudo yum update -y
-                sudo yum install docker -y
-                sudo service docker start
-                sudo usermod -a -G docker ec2-user
-                sudo yum install -y python3-pip
-                sudo yum remove python3-requests
-                sudo pip install requests
-                sudo pip3 install docker-compose
-                cd ~/app
-                sudo docker-compose down
-                sudo docker-compose build --no-cache api
-                sudo docker-compose up -d
-            '
+              # Criar contexto ECS
+              docker context create ecs logistics-ecs \
+                --from-env \
+                --default-cluster desafio
+
+              # Usar o contexto ECS
+              docker context use logistics-ecs
+
+              # Converter e fazer deploy usando docker compose
+              docker compose convert > ecs-compose.yml
+              
+              # Deploy usando docker compose
+              DOCKER_CONTEXT=logistics-ecs docker compose -f ecs-compose.yml up
+
+              # Aguardar o deploy completar
+              sleep 30  # dar tempo para o serviço iniciar
+              docker compose ps

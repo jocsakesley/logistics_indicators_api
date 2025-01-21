@@ -3,13 +3,11 @@ from src.usecases.exceptions import FilterClientIdException
 from src.repositories.abstract_repository import AbstractRepository
 from flask import Request, url_for
 
-class GetAllCustomersUseCase:
+class FilterAllCustomersUseCase:
     def __init__(self, customer_repository: AbstractRepository):
         self.customer_repository = customer_repository
 
-    def execute(self, *args, **kwargs):
-        request: Request = kwargs.get("request")
-        
+    def execute(self, request: Request):        
         dict_args = {**request.args}
 
         limit = dict_args.pop("limit", "30")

@@ -5,7 +5,7 @@ from marshmallow import Schema, fields
 
 class Customer(Schema):
     nome = fields.Str(required=True)
-    email = fields.Email(required=True, unique=True)
+    email = fields.Email(required=True)
     telefone = fields.Str()
     
 

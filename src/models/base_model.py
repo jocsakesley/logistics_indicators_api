@@ -28,8 +28,3 @@ class BaseModel(Base):
                 return date_obj.strftime("%Y%m%d %H%M%S")
             except ValueError:
                 continue
-
-
-if __name__ == "__main__":
-    base = BaseModel.convert_date("01/05/2025")
-    print(base)
