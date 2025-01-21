@@ -1,11 +1,10 @@
 from threading import Thread, RLock
 import time
-import logging
-import csv
 from werkzeug.datastructures import FileStorage
-from queue import Queue, Empty
+from queue import Queue
 from sqlalchemy.exc import IntegrityError
 
+from src.infra.config.logger import logger
 from src.models.base_model import BaseModel
 from src.repositories.abstract_repository import AbstractRepository
 
@@ -49,20 +48,25 @@ class FileHandler:
                     continue
             if self.queue.empty():
                 time.sleep(0.1)
+                end = time.time() - self.start
+                logger.info(f"Aguardando 100ms pela fila vazia. Tempo passado desde o inicio das threads: {end}")
                 if self.queue.empty():
                     time.sleep(10)
+                    end = time.time() - self.start
+                    logger.info(f"Aguardando 10s pela fila vazia. Tempo passado desde o inicio das threads: {end}")
                     if self.queue.empty():
+                        end = time.time() - self.start
+                        logger.info(f"Encerrando Threads. Tempo passado desde o inicio: {end}")
                         self.__remove_file()
                         break
     def __remove_file(self):
         try:
             self.file.close()
-            self.file = None
-            self.queue = None
         except Exception as e:
             raise e
 
     def __start_threads(self):
+        self.start = time.time()
         for _ in range(100):
             thread = Thread(target=self.__listen_queue, daemon=True)
             thread.start()
