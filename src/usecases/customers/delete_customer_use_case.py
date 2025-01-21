@@ -7,8 +7,8 @@ class DeleteCustomerUseCase:
     def __init__(self, customer_repository: AbstractRepository):
         self.customer_repository = customer_repository
 
-    def execute(self, *args, **kwargs):
-        customer = self.customer_repository.get(**kwargs)
+    def execute(self, id):
+        customer = self.customer_repository.get(id)
         if not customer:
             raise CustomerDoesNotExistException('Customer does not exist')
         self.customer_repository.delete(customer)

@@ -15,10 +15,10 @@ class RegisterUseCase:
     def execute(self, *args, **kwargs):
 
 
-        if self.repository.get(username=args[0].username):
+        if self.repository.filter_by(username=args[0].username):
             raise ExistentFieldException('Username already exists')
 
-        if self.repository.get(email=args[0].email):
+        if self.repository.filter_by(email=args[0].email):
             raise ExistentFieldException('Email already exists')
         
         
