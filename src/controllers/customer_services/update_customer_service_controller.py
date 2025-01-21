@@ -3,13 +3,12 @@
 from flask import Request, jsonify
 import marshmallow
 
-from src.usecases.exceptions import CustomerServiceDoesNotExistException
+from src.usecases.abstract_use_case import AbstractUseCase
 from src.entities.entities import CustomerService
-from src.usecases.customer_services.update_customer_service_use_case import UpdateCustomerServiceUseCase
 
 
 class UpdateCustomerServiceController:
-    def __init__(self, update_customer_service_use_case: UpdateCustomerServiceUseCase):
+    def __init__(self, update_customer_service_use_case: AbstractUseCase):
         self.update_customer_service_use_case = update_customer_service_use_case
 
     def handle(self, request: Request, id: int):

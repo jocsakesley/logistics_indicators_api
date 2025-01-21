@@ -3,11 +3,11 @@
 
 from flask import jsonify
 from src.controllers.abstract_controller import AbstractController
-from src.usecases.indicators.base_indicators_use_case import BaseIndicatorsUseCase
+from src.usecases.abstract_use_case import AbstractUseCase
 
 
 class GetSLAController(AbstractController):
-    def __init__(self, get_sla_use_case: BaseIndicatorsUseCase):
+    def __init__(self, get_sla_use_case: AbstractUseCase):
         self.get_sla_use_case = get_sla_use_case
     
     def handle(self, *args, **kwargs):

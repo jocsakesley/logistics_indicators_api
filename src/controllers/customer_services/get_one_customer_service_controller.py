@@ -1,11 +1,11 @@
 
 from flask import jsonify
+from src.usecases.abstract_use_case import AbstractUseCase
 from src.usecases.exceptions import CustomerServiceDoesNotExistException
-from src.usecases.customer_services.get_one_customer_service_use_case import GetOneCustomerServiceUseCase
 
 
 class GetOneCustomerServiceController:
-    def __init__(self, get_one_customer_service_use_case: GetOneCustomerServiceUseCase):
+    def __init__(self, get_one_customer_service_use_case: AbstractUseCase):
         self.get_one_customer_service_use_case = get_one_customer_service_use_case
     
     def handle(self, id):

@@ -1,0 +1,590 @@
+{
+	"info": {
+		"_postman_id": "1ebe4bb7-c76b-4e84-bac8-dce82140c0b0",
+		"name": "logistics-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26898947"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "REGISTER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"123123\",\n    \"email\": \"admin@email.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/auth/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"123123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REFRESH",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczNzQ1ODEwMSwianRpIjoiYmM5M2ZkNTUtNTIwZC00ZTRmLTkwNWYtNGRlYTRkM2NkMWY3IiwidHlwZSI6InJlZnJlc2giLCJzdWIiOiJsb2dpc3Rjcy1zZXJ2aWNlIiwibmJmIjoxNzM3NDU4MTAxLCJjc3JmIjoiN2UyMTA1YWUtNDI5ZS00NTMxLWFiMzEtMDkzMGE0MjVlNWQ2IiwiZXhwIjoxNzQwMDUwMTAxLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5jb20ifQ.icP_ofLLtpUfW-EVUp2Qp6iBcKVSHxw_7o3nBLJJHP4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/v1/auth/refresh",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer Services",
+			"item": [
+				{
+					"name": "Filter All services",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczNzQ3OTE4NCwianRpIjoiZDBmYmVhMDItYjFiYi00NzRjLTk5OGItMGVjM2QxMThkMGFjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxvZ2lzdGNzLXNlcnZpY2UiLCJuYmYiOjE3Mzc0NzkxODQsImNzcmYiOiIwYjJjYzE0OS0wYWQ2LTQ5OWUtOGMzZi0yZjE5MmExZDc3MGQiLCJleHAiOjE3Mzc0ODI3ODQsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGVtYWlsLmNvbSJ9.2j49qaGjYWFBp79qZxHzWgHvN364X6DRuR9MEDqki20",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/services",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"services"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Total services",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczNzQ3OTE4NCwianRpIjoiZDBmYmVhMDItYjFiYi00NzRjLTk5OGItMGVjM2QxMThkMGFjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxvZ2lzdGNzLXNlcnZpY2UiLCJuYmYiOjE3Mzc0NzkxODQsImNzcmYiOiIwYjJjYzE0OS0wYWQ2LTQ5OWUtOGMzZi0yZjE5MmExZDc3MGQiLCJleHAiOjE3Mzc0ODI3ODQsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGVtYWlsLmNvbSJ9.2j49qaGjYWFBp79qZxHzWgHvN364X6DRuR9MEDqki20",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/v1/services/total",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"services",
+								"total"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One service",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/services/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"services",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Load file services",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczNzQ1MDI2OCwianRpIjoiZmY0YzA4YmEtNjc1Mi00N2YxLThjOGItMjk3YjZiNzJiNDRlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxvZ2lzdGNzLXNlcnZpY2UiLCJuYmYiOjE3Mzc0NTAyNjgsImNzcmYiOiIwOWNiODM1Ni1jZTM4LTQzMzMtOTRkMy1lYzk3OGFiZTZjNDQiLCJleHAiOjE3Mzc0NTM4NjgsInVzZXJuYW1lIjoiam9jc2EiLCJlbWFpbCI6ImpvY3NhZG1iQGdtYWlsLmNvbSJ9.HXUPk3j4FDKMuB7q63Yda5yHSDTw3QOjRvCNOuIYcSY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/jocsakesley/Documents/Desafio/bd_desafio.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/v1/services/batch",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"services",
+								"batch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Service",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczNzQ2Mzg1NiwianRpIjoiMmNmMWZiODUtOWU0Zi00MGQzLWJiMTYtOGQ0NTI5YWFiZWVmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxvZ2lzdGNzLXNlcnZpY2UiLCJuYmYiOjE3Mzc0NjM4NTYsImNzcmYiOiIzYWJjNzI3OS1iZmE3LTQwNTMtOGFlNC0yNTE3MjE0MjUyMjkiLCJleHAiOjE3Mzc0Njc0NTYsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGVtYWlsLmNvbSJ9.qSi9vTI6zzCekFuJEInZuCdraBqk2wFZEN_GOhyn1x0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"angel\": \"teste123\",\n    \"id_cliente\": 2,\n    \"data_de_atendimento\": \"2024-03-21 00:00:00\",\n    \"data_limite\": \"2024-05-22\",\n    \"polo\": \"RJ\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/services",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"services"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update service",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczNzQ2Mzg1NiwianRpIjoiMmNmMWZiODUtOWU0Zi00MGQzLWJiMTYtOGQ0NTI5YWFiZWVmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxvZ2lzdGNzLXNlcnZpY2UiLCJuYmYiOjE3Mzc0NjM4NTYsImNzcmYiOiIzYWJjNzI3OS1iZmE3LTQwNTMtOGFlNC0yNTE3MjE0MjUyMjkiLCJleHAiOjE3Mzc0Njc0NTYsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGVtYWlsLmNvbSJ9.qSi9vTI6zzCekFuJEInZuCdraBqk2wFZEN_GOhyn1x0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"angel\": \"teste123\",\n    \"id_cliente\": 1,\n    \"data_de_atendimento\": \"2024-03-21 00:00:00\",\n    \"data_limite\": \"2024-05-22\",\n    \"polo\": \"RJ\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/services/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"services",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "Filter All customers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczNzQ2Mzg1NiwianRpIjoiMmNmMWZiODUtOWU0Zi00MGQzLWJiMTYtOGQ0NTI5YWFiZWVmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxvZ2lzdGNzLXNlcnZpY2UiLCJuYmYiOjE3Mzc0NjM4NTYsImNzcmYiOiIzYWJjNzI3OS1iZmE3LTQwNTMtOGFlNC0yNTE3MjE0MjUyMjkiLCJleHAiOjE3Mzc0Njc0NTYsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGVtYWlsLmNvbSJ9.qSi9vTI6zzCekFuJEInZuCdraBqk2wFZEN_GOhyn1x0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/customers?limit=10&offset=0",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"customers"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Total customers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/customers/total",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"customers",
+								"total"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One customer",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczNzQ2Mzg1NiwianRpIjoiMmNmMWZiODUtOWU0Zi00MGQzLWJiMTYtOGQ0NTI5YWFiZWVmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxvZ2lzdGNzLXNlcnZpY2UiLCJuYmYiOjE3Mzc0NjM4NTYsImNzcmYiOiIzYWJjNzI3OS1iZmE3LTQwNTMtOGFlNC0yNTE3MjE0MjUyMjkiLCJleHAiOjE3Mzc0Njc0NTYsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGVtYWlsLmNvbSJ9.qSi9vTI6zzCekFuJEInZuCdraBqk2wFZEN_GOhyn1x0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/v1/customers/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create customer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczNzQ2Mzg1NiwianRpIjoiMmNmMWZiODUtOWU0Zi00MGQzLWJiMTYtOGQ0NTI5YWFiZWVmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxvZ2lzdGNzLXNlcnZpY2UiLCJuYmYiOjE3Mzc0NjM4NTYsImNzcmYiOiIzYWJjNzI3OS1iZmE3LTQwNTMtOGFlNC0yNTE3MjE0MjUyMjkiLCJleHAiOjE3Mzc0Njc0NTYsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGVtYWlsLmNvbSJ9.qSi9vTI6zzCekFuJEInZuCdraBqk2wFZEN_GOhyn1x0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"teste1\",\n    \"email\": \"teste1@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/customers",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update customer",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczNzQ2Mzg1NiwianRpIjoiMmNmMWZiODUtOWU0Zi00MGQzLWJiMTYtOGQ0NTI5YWFiZWVmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxvZ2lzdGNzLXNlcnZpY2UiLCJuYmYiOjE3Mzc0NjM4NTYsImNzcmYiOiIzYWJjNzI3OS1iZmE3LTQwNTMtOGFlNC0yNTE3MjE0MjUyMjkiLCJleHAiOjE3Mzc0Njc0NTYsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGVtYWlsLmNvbSJ9.qSi9vTI6zzCekFuJEInZuCdraBqk2wFZEN_GOhyn1x0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"teste1\",\n    \"email\": \"teste1@gmail.com\",\n    \"telefone\": \"888888888\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/customers/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete customer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/customers/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Load file customers",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczNzQ1MDI2OCwianRpIjoiZmY0YzA4YmEtNjc1Mi00N2YxLThjOGItMjk3YjZiNzJiNDRlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxvZ2lzdGNzLXNlcnZpY2UiLCJuYmYiOjE3Mzc0NTAyNjgsImNzcmYiOiIwOWNiODM1Ni1jZTM4LTQzMzMtOTRkMy1lYzk3OGFiZTZjNDQiLCJleHAiOjE3Mzc0NTM4NjgsInVzZXJuYW1lIjoiam9jc2EiLCJlbWFpbCI6ImpvY3NhZG1iQGdtYWlsLmNvbSJ9.HXUPk3j4FDKMuB7q63Yda5yHSDTw3QOjRvCNOuIYcSY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/jocsakesley/Documents/Desafio/customers_data.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/v1/customers/batch",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"customers",
+								"batch"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Indicators",
+			"item": [
+				{
+					"name": "SLA Polo",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczNzQ1OTE1OSwianRpIjoiMGZjOWI0NWMtN2ZjOS00ZDZhLTlkMTctNGEzZTMwZGIzNDEzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxvZ2lzdGNzLXNlcnZpY2UiLCJuYmYiOjE3Mzc0NTkxNTksImNzcmYiOiI3MGQzNDFlMi0wYTU4LTQ1ODgtOGM4Yi1hOGYzNWU4NGVkMzYiLCJleHAiOjE3Mzc0NjI3NTksInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGVtYWlsLmNvbSJ9.mEZmgxelSdrkQJrRW48579y84Mp6FEB8NHlNHClxxog",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/v1/indicators/sla/polo",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"indicators",
+								"sla",
+								"polo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SLA Angel",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczNzQ1OTE1OSwianRpIjoiMGZjOWI0NWMtN2ZjOS00ZDZhLTlkMTctNGEzZTMwZGIzNDEzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxvZ2lzdGNzLXNlcnZpY2UiLCJuYmYiOjE3Mzc0NTkxNTksImNzcmYiOiI3MGQzNDFlMi0wYTU4LTQ1ODgtOGM4Yi1hOGYzNWU4NGVkMzYiLCJleHAiOjE3Mzc0NjI3NTksInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGVtYWlsLmNvbSJ9.mEZmgxelSdrkQJrRW48579y84Mp6FEB8NHlNHClxxog",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/v1/indicators/sla/angel",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"indicators",
+								"sla",
+								"angel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Productivity",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczNzQ1OTE1OSwianRpIjoiMGZjOWI0NWMtN2ZjOS00ZDZhLTlkMTctNGEzZTMwZGIzNDEzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImxvZ2lzdGNzLXNlcnZpY2UiLCJuYmYiOjE3Mzc0NTkxNTksImNzcmYiOiI3MGQzNDFlMi0wYTU4LTQ1ODgtOGM4Yi1hOGYzNWU4NGVkMzYiLCJleHAiOjE3Mzc0NjI3NTksInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGVtYWlsLmNvbSJ9.mEZmgxelSdrkQJrRW48579y84Mp6FEB8NHlNHClxxog",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/v1/indicators/productivity",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"indicators",
+								"productivity"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

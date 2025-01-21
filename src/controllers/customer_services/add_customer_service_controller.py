@@ -1,17 +1,16 @@
 
 
-from flask import Request, jsonify, request
+from flask import Request, jsonify
 import marshmallow
-from sqlalchemy.exc import IntegrityError
 from src.controllers.abstract_controller import AbstractController
 from src.entities.entities import CustomerService
 from src.models.customer_service_model import CustomerServiceModel
+from src.usecases.abstract_use_case import AbstractUseCase
 from src.usecases.exceptions import CustomerDoesNotExistException
-from src.usecases.customer_services.add_customer_service_use_case import AddCustomerServiceUseCase
 
 
 class AddCustomerServiceController(AbstractController):
-    def __init__(self, add_customer_service_use_case: AddCustomerServiceUseCase):
+    def __init__(self, add_customer_service_use_case: AbstractUseCase):
         self.add_customer_service_use_case = add_customer_service_use_case
     
     def handle(self, request: Request):

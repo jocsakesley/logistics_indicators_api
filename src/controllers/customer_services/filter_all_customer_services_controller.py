@@ -1,11 +1,10 @@
 
 from flask import jsonify, url_for
 from src.controllers.abstract_controller import AbstractController
-from src.usecases.customer_services.filter_all_customer_service_use_case import FilterAllCustomerServiceUseCase
-
+from src.usecases.abstract_use_case import AbstractUseCase
 
 class FilterAllCustomerServiceController(AbstractController):
-    def __init__(self, filter_all_customer_service_use_case: FilterAllCustomerServiceUseCase):
+    def __init__(self, filter_all_customer_service_use_case: AbstractUseCase):
         self.filter_all_customer_service_use_case = filter_all_customer_service_use_case
     
     def handle(self, request):

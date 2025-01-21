@@ -1,8 +1,6 @@
 
 from sqlalchemy import Column, Integer, String, Date, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
-from datetime import datetime
-import logging
 from src.models.base_model import BaseModel
 
 

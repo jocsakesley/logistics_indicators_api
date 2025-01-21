@@ -3,11 +3,11 @@
 from queue import Queue
 from flask import Request, jsonify
 from src.controllers.abstract_controller import AbstractController
-from src.usecases.customers.load_customers_use_case import LoadCustomersUseCase
+from src.usecases.abstract_use_case import AbstractUseCase
 
 
 class LoadCustomersController(AbstractController):
-    def __init__(self, load_customers_use_case: LoadCustomersUseCase):
+    def __init__(self, load_customers_use_case: AbstractUseCase):
         self.load_customers_use_case = load_customers_use_case
 
     def handle(self, request: Request, queue: Queue):
