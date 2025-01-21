@@ -61,4 +61,4 @@ def delete_client(id):
 def load_customer_thread():
     repository = SqlAlchemyRepository(db.DbSession, CustomerModel)
     use_case = LoadCustomersUseCase(repository)
-    return LoadCustomersController(use_case).handle(file=request.files['file'], queue=Queue())
+    return LoadCustomersController(use_case).handle(request=request, queue=Queue())

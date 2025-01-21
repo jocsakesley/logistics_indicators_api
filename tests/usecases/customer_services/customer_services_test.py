@@ -1,13 +1,13 @@
 
 
-import json
+import io
+from werkzeug.datastructures import FileStorage
+from queue import Queue
 import pytest
 from src.entities.entities import CustomerService
+from src.usecases.customer_services.load_customer_services_use_case import LoadCustomerServicesUseCase
 from tests.mocks.mock_repository import MockRepository
-from tests.mocks.mock_models import MockCustomerModel, MockCustomerServiceModel
-from src.usecases.customers.delete_customer_use_case import DeleteCustomerUseCase
-from src.usecases.customers.get_one_customer_use_case import GetOneCustomerUseCase
-from src.usecases.customers.update_customer_use_case import UpdateCustomerUseCase
+from tests.mocks.mock_models import MockCustomerServiceModel
 from src.usecases.customers.filter_all_customers_use_case import FilterAllCustomersUseCase
 from tests.mocks.mock_request import MockRequest
 from src.usecases.exceptions import FilterClientIdException
@@ -61,7 +61,8 @@ def test_update_customer_services_use_case():
                                                         data_limite="02/01/2025",
                                                         data_de_atendimento="02/10/2025")
     repo = MockRepository(customer_service_model)
-    customer_service_use_case = UpdateCustomerServiceUseCase(repo)
+    repo_customer = MockRepository(customer_model)
+    customer_service_use_case = UpdateCustomerServiceUseCase(repo, repo_customer)
     customer = CustomerService()
     customer_schema = customer.load({"id_cliente": 2, 
                                      "angel":"teste2", 
@@ -135,3 +136,38 @@ def test_filter_get_total(customer_service_model):
     request = MockRequest(args={"limit": 10, "offset": 10}, path="total")
     result = customer_service_use_case.execute(request)
     assert result == {'total': 3}
+
+def test_load_customer_services_use_case(customer_service_model):
+    repo = MockRepository(customer_service_model)
+
+    customer_service_use_case = LoadCustomerServicesUseCase(repo)
+    file_content = io.BytesIO("1049218;441680520;Mariana Ferreira Magalhães;PA - MARABA;03/06/2022;2022-06-02 14:23:21".encode('utf-8'))
+    mockrequest = MockRequest(args={"limit": 10, "offset": 10}, 
+                          files={"file": FileStorage(stream=file_content, filename="teste.csv", content_type="text/csv")})
+    
+    result = customer_service_use_case.execute(mockrequest, queue=Queue())
+    assert result == None
+
+def test_load_customer_services_invalid_type(customer_service_model):
+    repo = MockRepository(customer_service_model)
+
+    customer_service_use_case = LoadCustomerServicesUseCase(repo)
+    file_content = io.BytesIO("1049218;441680520;Mariana Ferreira Magalhães;PA - MARABA;03/06/2022;2022-06-02 14:23:21".encode('utf-8'))
+    mockrequest = MockRequest(args={"limit": 10, "offset": 10}, 
+                          files={"file": FileStorage(stream=file_content, filename="teste.csv", content_type="invalid_type")})
+    
+    with pytest.raises(ValueError):
+        customer_service_use_case.execute(mockrequest, queue=Queue())
+
+def test_load_customer_services_not_file(customer_service_model):
+    repo = MockRepository(customer_service_model)
+
+    customer_service_use_case = LoadCustomerServicesUseCase(repo)
+    file_content = io.BytesIO("1049218;441680520;Mariana Ferreira Magalhães;PA - MARABA;03/06/2022;2022-06-02 14:23:21".encode('utf-8'))
+    mockrequest = MockRequest(args={"limit": 10, "offset": 10}, 
+                          files={"file": FileStorage(stream=file_content, content_type="invalid_type")})
+    
+    with pytest.raises(ValueError):
+        customer_service_use_case.execute(mockrequest, queue=Queue())
+
+        

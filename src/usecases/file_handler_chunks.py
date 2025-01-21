@@ -5,15 +5,13 @@ from queue import Queue
 from sqlalchemy.exc import IntegrityError
 
 from src.infra.config.logger import logger
-from src.models.base_model import BaseModel
 from src.repositories.abstract_repository import AbstractRepository
 
 class FileHandler:
-    def __init__(self, file: FileStorage, queue: Queue, repository: AbstractRepository, model: BaseModel):
+    def __init__(self, file: FileStorage, queue: Queue, repository: AbstractRepository):
         self.file = file
         self.queue = queue
         self.repository = repository
-        self.model = model
         self.lock = RLock()
         self.__start_threads()
         self.__file_process_in_thread()
@@ -36,7 +34,7 @@ class FileHandler:
                     lines.append(line)
                     register = line.split(";")
                     if register[0].isnumeric():
-                        customer_service = self.model().load_by_file(*register)
+                        customer_service = self.repository.model().load_by_file(*register)
                         chunks.append(customer_service)
                 try:
                     self.repository.add_all(chunks)
@@ -49,14 +47,12 @@ class FileHandler:
             if self.queue.empty():
                 time.sleep(0.1)
                 end = time.time() - self.start
-                logger.info(f"Aguardando 100ms pela fila vazia. Tempo passado desde o inicio das threads: {end}")
                 if self.queue.empty():
                     time.sleep(10)
                     end = time.time() - self.start
-                    logger.info(f"Aguardando 10s pela fila vazia. Tempo passado desde o inicio das threads: {end}")
                     if self.queue.empty():
                         end = time.time() - self.start
-                        logger.info(f"Encerrando Threads. Tempo passado desde o inicio: {end}")
+                        logger.info(f"Arquivo processado, encerrando Threads. Tempo passado desde o inicio: {end:.4f} segundos")
                         self.__remove_file()
                         break
     def __remove_file(self):

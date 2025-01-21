@@ -1,7 +1,5 @@
 
 
-from tests.mocks.mock_models import MockCustomerModel
-
 
 class MockRepository:
     def __init__(self, model, exception=None):

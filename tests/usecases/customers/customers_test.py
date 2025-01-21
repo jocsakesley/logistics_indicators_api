@@ -1,9 +1,13 @@
 
 
+import io
 import json
+from queue import Queue
 import pytest
+from werkzeug.datastructures import FileStorage
 from src.entities.entities import Customer
 from src.usecases.customers.add_customer_use_case import AddCustomerUseCase
+from src.usecases.customers.load_customers_use_case import LoadCustomersUseCase
 from tests.mocks.mock_repository import MockRepository
 from tests.mocks.mock_models import MockCustomerModel
 from src.usecases.customers.delete_customer_use_case import DeleteCustomerUseCase
@@ -95,3 +99,36 @@ def test_filter_get_total():
     request = MockRequest(args={"limit": 10, "offset": 10}, path="total")
     result = customer_use_case.execute(request)
     assert result == {'total': 2}
+
+def test_load_customer_use_case(customer_model):
+    repo = MockRepository(customer_model)
+
+    customer_use_case = LoadCustomersUseCase(repo)
+    file_content = io.BytesIO("441680520;Joseph Cain;441680520anthony02@gmail.com;35811904556".encode('utf-8'))
+    mockrequest = MockRequest(args={"limit": 10, "offset": 10}, 
+                          files={"file": FileStorage(stream=file_content, filename="teste.csv", content_type="text/csv")})
+    
+    result = customer_use_case.execute(mockrequest, queue=Queue())
+    assert result == None
+
+def test_load_customer_invalid_type(customer_model):
+    repo = MockRepository(customer_model)
+
+    customer_use_case = LoadCustomersUseCase(repo)
+    file_content = io.BytesIO("441680520;Joseph Cain;441680520anthony02@gmail.com;35811904556".encode('utf-8'))
+    mockrequest = MockRequest(args={"limit": 10, "offset": 10}, 
+                          files={"file": FileStorage(stream=file_content, filename="teste.csv", content_type="invalid_type")})
+    
+    with pytest.raises(ValueError):
+        customer_use_case.execute(mockrequest, queue=Queue())
+
+def test_load_customer_not_file(customer_model):
+    repo = MockRepository(customer_model)
+
+    customer_use_case = LoadCustomersUseCase(repo)
+    file_content = io.BytesIO("441680520;Joseph Cain;441680520anthony02@gmail.com;35811904556".encode('utf-8'))
+    mockrequest = MockRequest(args={"limit": 10, "offset": 10}, 
+                          files={"file": FileStorage(stream=file_content, content_type="invalid_type")})
+    
+    with pytest.raises(ValueError):
+        customer_use_case.execute(mockrequest, queue=Queue())

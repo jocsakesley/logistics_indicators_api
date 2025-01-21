@@ -8,9 +8,9 @@ class FilterAllCustomerServiceController(AbstractController):
     def __init__(self, filter_all_customer_service_use_case: FilterAllCustomerServiceUseCase):
         self.filter_all_customer_service_use_case = filter_all_customer_service_use_case
     
-    def handle(self, *args, **kwargs):
+    def handle(self, request):
         try:
-            result = self.filter_all_customer_service_use_case.execute(**kwargs)
+            result = self.filter_all_customer_service_use_case.execute(request)
         except Exception as e:
             return jsonify({'error': str(e)}), 500
         
