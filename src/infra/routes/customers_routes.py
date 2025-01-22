@@ -2,7 +2,7 @@
 
 from queue import Queue
 from flask import Blueprint, request
-from src.models.client_model import CustomerModel
+from src.models.customer_model import CustomerModel
 from src.repositories.repository import Repository
 from src.controllers.customers.load_customers_controller import LoadCustomersController
 from src.controllers.customers.delete_customer_controller import DeleteCustomerController

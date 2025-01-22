@@ -1,6 +1,6 @@
 
 from src.usecases.abstract_use_case import AbstractUseCase
-from src.usecases.exceptions import ExistentFieldException
+from src.usecases.shared.exceptions import ExistentFieldException
 from src.repositories.abstract_repository import AbstractRepository
 
 

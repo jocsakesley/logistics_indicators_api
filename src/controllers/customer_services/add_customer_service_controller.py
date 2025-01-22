@@ -6,7 +6,7 @@ from src.controllers.abstract_controller import AbstractController
 from src.entities.entities import CustomerService
 from src.models.customer_service_model import CustomerServiceModel
 from src.usecases.abstract_use_case import AbstractUseCase
-from src.usecases.exceptions import CustomerDoesNotExistException
+from src.usecases.shared.exceptions import CustomerDoesNotExistException
 
 
 class AddCustomerServiceController(AbstractController):

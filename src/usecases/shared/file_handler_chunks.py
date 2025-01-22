@@ -1,3 +1,4 @@
+import os
 from threading import Thread, RLock
 import time
 from werkzeug.datastructures import FileStorage
@@ -29,7 +30,7 @@ class FileHandler:
             with self.lock:
                 chunks = []
                 lines = []
-                for _ in range(min(1000, self.queue.qsize())):
+                for _ in range(min(int(os.getenv("SIZE_FILE_CHUNKS")), self.queue.qsize())):
                     line = self.queue.get_nowait()
                     lines.append(line)
                     register = line.split(";")
@@ -48,7 +49,7 @@ class FileHandler:
                 time.sleep(0.1)
                 end = time.time() - self.start
                 if self.queue.empty():
-                    time.sleep(10)
+                    time.sleep(int(os.getenv("SECONDS_WAIT_QUEUE_EMPTY")))
                     end = time.time() - self.start
                     if self.queue.empty():
                         end = time.time() - self.start
@@ -64,7 +65,7 @@ class FileHandler:
 
     def __start_threads(self):
         self.start = time.time()
-        for _ in range(100):
+        for _ in range(int(os.getenv("NUMBER_WORKER_FILE_THREADS"))):
             thread = Thread(target=self.__listen_queue, daemon=True)
             thread.start()
         

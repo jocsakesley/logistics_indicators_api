@@ -6,7 +6,7 @@ from src.models.user_model import UserModel
 from src.controllers.abstract_controller import AbstractController
 from src.entities.entities import User
 from src.usecases.abstract_use_case import AbstractUseCase
-from src.usecases.exceptions import ExistentFieldException
+from src.usecases.shared.exceptions import ExistentFieldException
 
 
 class RegisterController(AbstractController):

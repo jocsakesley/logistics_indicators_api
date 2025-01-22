@@ -1,7 +1,7 @@
 
 from flask import jsonify
 from src.usecases.abstract_use_case import AbstractUseCase
-from src.usecases.exceptions import CustomerServiceDoesNotExistException
+from src.usecases.shared.exceptions import CustomerServiceDoesNotExistException
 
 
 class GetOneCustomerServiceController:

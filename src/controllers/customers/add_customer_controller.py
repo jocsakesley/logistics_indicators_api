@@ -4,7 +4,7 @@ from marshmallow.exceptions import ValidationError
 from sqlalchemy.exc import IntegrityError
 from src.controllers.abstract_controller import AbstractController
 from src.entities.entities import Customer
-from src.models.client_model import CustomerModel
+from src.models.customer_model import CustomerModel
 from src.usecases.abstract_use_case import AbstractUseCase
 
 

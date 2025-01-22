@@ -2,7 +2,7 @@
 
 from flask import jsonify
 from src.usecases.abstract_use_case import AbstractUseCase
-from src.usecases.exceptions import CustomerDoesNotExistException
+from src.usecases.shared.exceptions import CustomerDoesNotExistException
 from src.controllers.abstract_controller import AbstractController
 
 

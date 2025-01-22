@@ -10,7 +10,7 @@ from tests.mocks.mock_repository import MockRepository
 from tests.mocks.mock_models import MockCustomerServiceModel
 from src.usecases.customers.filter_all_customers_use_case import FilterAllCustomersUseCase
 from tests.mocks.mock_request import MockRequest
-from src.usecases.exceptions import FilterClientIdException
+from src.usecases.shared.exceptions import FilterClientIdException
 from src.usecases.customer_services.add_customer_service_use_case import AddCustomerServiceUseCase
 from tests.usecases.customers.customers_test import customer_model
 from src.usecases.customer_services.get_one_customer_service_use_case import GetOneCustomerServiceUseCase
