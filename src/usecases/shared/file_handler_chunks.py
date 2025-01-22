@@ -25,7 +25,7 @@ class FileHandler:
         process = Thread(target=self.__file_process)
         process.start()
         process.join()
-    def __listen_queue(self):
+    def __listen_queue(self, worker_name):
         while True:
             with self.lock:
                 chunks = []
@@ -53,7 +53,7 @@ class FileHandler:
                     end = time.time() - self.start
                     if self.queue.empty():
                         end = time.time() - self.start
-                        logger.info(f"Arquivo processado, encerrando Threads. Tempo passado desde o inicio: {end:.4f} segundos")
+                        logger.info(f"Arquivo {self.file.filename} processado, encerrando worker {worker_name}. Tempo passado desde o inicio: {end:.4f} segundos")
 
                         self.__remove_file()
                         break
@@ -65,8 +65,8 @@ class FileHandler:
 
     def __start_threads(self):
         self.start = time.time()
-        for _ in range(int(os.getenv("NUMBER_WORKER_FILE_THREADS"))):
-            thread = Thread(target=self.__listen_queue, daemon=True)
+        for i in range(int(os.getenv("NUMBER_WORKER_FILE_THREADS"))):
+            thread = Thread(target=self.__listen_queue, args=(f"worker-{i}",), daemon=True)
             thread.start()
         
 
