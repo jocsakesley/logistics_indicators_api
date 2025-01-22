@@ -78,9 +78,9 @@ A documentação pode ser baixada a partir [desse link](https://github.com/jocsa
 
 ## 💻 Como usar
 
-- Faça o upload do arquivo na rota `/v1/customers/batch`
+- Faça o upload do arquivo `bd_desafio.csv` na rota `/v1/customers/batch`
 - Monitore o total de linhas inseridas na rota `/v1/customers/total` (o total deve ser 573670)
-- Faça o upload do arquivo na rota `/v1/services/batch`
+- Faça o upload do arquivo `customers_data.csv` na rota `/v1/services/batch`
 - Monitore o total de linhas inseridas na rota `/v1/services/total` (o total deve ser 1048575)
 - Faça as devidas consultas conforme a documentação
 
