@@ -5,7 +5,7 @@ O projeto trata-se de uma API que permite o cadastro de clientes e atendimentos 
 
 ## 🎯 Objetivos
 - Cadastro, consulta, filtro, atualização e deleção de clientes (customers)
-- Cadastro, consutta, filtro e atualização de atendimentos (customer_services)
+- Cadastro, consulta, filtro e atualização de atendimentos (customer_services)
 - Carga de clientes e atendimentos a partir de arquivo .csv
 - Consulta de indicadores de operação:
   - Produtividade por Green Angel
@@ -16,16 +16,17 @@ O projeto trata-se de uma API que permite o cadastro de clientes e atendimentos 
 
 - Autenticação JWT com rotas de registro, login e refresh token
 - [Script de geração de dados fictícios de clientes](https://github.com/jocsakesley/logistics_indicators_api/blob/main/utils/create_customers.py) a partir dos valores únicos da coluna `id_cliente` do arquivo de atendimentos
-- Carga do arquivo de clientes e atendimentos a partir de uma rota http que faz o processamento assíncrono, com transformação dos dados de `data_de_atendimento` que estavam despadronizadaos, utilizando uma thread para recepção do arquivo e envio das linhas para uma fila, evitando bloqueio da requisição, e 100 threads para a leitura da fila e gravação no banco de dados em chunks de 2000 registros por vez.
+- Carga do arquivo de clientes e atendimentos a partir de uma rota http que faz o processamento assíncrono, com transformação dos dados de `data_de_atendimento` que estavam despadronizadaos, utilizando uma thread para recepção do arquivo e envio das linhas para uma fila, evitando bloqueio da requisição, e 100 threads para a leitura da fila e gravação no banco de dados em chunks de 2000 registros por vez. As threads, chunks e sleep times são configuráveis por variáveis de ambiente garantindo o melhor tradeoff para produção (O tempo de processamento atual no endereço público está maior que ao rodar localmente, devido a limitação de configuração para evitar custos)
 - Consulta do total de registros para clientes e atendimentos nas rotas `/v1/customers/total` e `/v1/services/total`, facilitando o monitoramento da conclusão da carga batch.
 - Consulta da rota `/v1/customers` com filtros para todos os campos (`email`, `nome` e `telefone`) e paginação a partir dos parameters `limit` e `offset`
-- Consulta da rota `/v1/services` com filtros para todos os campos (`email`, `nome` e `telefone`) e paginação a partir dos parameters `limit` e `offset`
+- Consulta da rota `/v1/services` com filtros para todos os campos (`angel`, `id_cliente`, `data_de_atendimento`, `data_limite` e `polo`) e paginação a partir dos parameters `limit` e `offset`
 - Consuta da rota `/v1/indicators/productivity`, `/v1/indicators/sla/angel` e `/v1/indicators/sla/polo` com filtros de data (`start_date=YYYY-MM-DD` e `end_date=YYYY-MM-DD`) e ordenação (`sort_field=<total, total_sla, avg_time>`  e `desc=<true, false>`)
 - Monitoramento das requisições através de logs com status e tempo de resposta, implementado a partir de um midlleware que calcula os tempos a cada requisição
 ![image](https://github.com/user-attachments/assets/769979f7-85a0-4cb2-a918-fa6b7542945b)
 - Monitoramento do tempo de carga do arquivo batch através dos logs
+média de 48 segundos para o arquivo de clientes com 573670 linhas e 80 segundos para o arquivo de atendimentos com 1048575 linhas
 - Testes unitários para os usecases que contém o core das regras de negócios
-- Testes end-to-end foram feitos a partir de uma collection do postman
+- Testes end-to-end foram feitos a partir de uma collection do postman, porém podem ser adicionados ao projeto
 - Padronização de commits para cada tipo de alteração (feat, refactor, test, build, doc) 
 - Execução do projeto a partir do docker compose
 - Build e push da imagem para o docker hub através da pipeline do github actions
@@ -42,7 +43,7 @@ O projeto trata-se de uma API que permite o cadastro de clientes e atendimentos 
 - README com instruções para instalação e execução do projeto
 
 ## 🚀 Instalação e Setup
-Para a execução do projeto é necessario que o [docker](https://docs.docker.com/engine/install/) e o [docker compose](https://docs.docker.com/compose/install/) estejam instalados
+Para a execução do projeto é necessario que o [docker](https://docs.docker.com/engine/install/) e o [docker compose](https://docs.docker.com/compose/install/) estejam instalados e seguidos os seguintes passos:
 
 1. Clone o repositório
 ```bash
@@ -53,30 +54,39 @@ cd logistics_indicators_api
 2. Configure as variáveis de ambiente (opcional)
  ```
  Arquivo .env disponibilizado no repositório apenas para desenvolvimento.
- Para produção é recomendado que as variáveis sejam setadas de forma segura.
+ Para produção é recomendado que as variáveis sejam setadas de forma segura através de um gerenciador de segredos.
 
  Variáveis do arquivo .env:
+
+ #Database
  POSTGRES_PASSWORD=postgres
  POSTGRES_USER=jocsa
  POSTGRES_DB=logistics
  POSTGRES_HOST=db
+ 
+ #Autenticação
  JWT_SECRET_KEY=my-secret
+ 
+ #File handler
+ NUMBER_WORKER_FILE_THREADS=100
+ SECONDS_WAIT_QUEUE_EMPTY=10
+ SIZE_FILE_CHUNKS=2000
 ```
 3. Inicialize o docker (pelo docker desktop ou pelo teminal)
    
 4. Rode o docker-compose
 ```bash
-docker-compose up -d
+docker-compose up --build -d
 ```
-5. Verifique que os containers da aplicação, db e adminer estão rodando
+5. Verifique que os containers da aplicação, db estão rodando
 ```bash
 docker ps
 ```
-6. Acesse a API pela url `localhost:8000` mais a rota de preferência
+6. Acesse a API pela url `localhost:8000` mais a rota de preferência segundo a documentação
 
 ## 📓 Documentação da API
 
-A documentação pode ser baixada a partir [desse link](https://github.com/jocsakesley/logistics_indicators_api/blob/main/docs/logistics-api.postman_collection.json)   e importada para um client http como o postman ou baixar a [especificação openapi nesse link](https://github.com/jocsakesley/logistics_indicators_api/blob/main/docs/openapi.yaml) e importar no editor online [swagger editor](https://editor.swagger.io/) para uma melhor visualização.
+A documentação pode ser baixada a partir [desse link](https://github.com/jocsakesley/logistics_indicators_api/blob/main/docs/logistics-api.postman_collection.json)  e importada para um client http como o postman ou baixar a [especificação openapi nesse link](https://github.com/jocsakesley/logistics_indicators_api/blob/main/docs/openapi.yaml) e importar no editor online [swagger editor](https://editor.swagger.io/) para uma melhor visualização.
 
 Obs.: Para as consultas, é possível remover os filtros para trazer todos os resultados com paginação para clientes e atendimentos.
 
@@ -108,8 +118,6 @@ Para a evolução do projeto pude identificar alguns pontos de melhoria:
 - Gerenciamento de usuários (hoje só tem o registro)
 - Correção para deploy inteiramente pelo github actions
 - Revisar usecases que podem ser melhor divididos em outras partes
-- Permitir configuração de threads, chuncks e sleep times para o processamento de arquivo batch a partir de variáveis de ambiente, garantindo o melhor tradeoff para produção (O tempo de processamento atual no endereço público está maior que ao rodar localmente, devido a limitação de configuração para evitar custos)
-- Montagem de um volume do banco de dados para garantir a persistência de arquivos ou uso do banco de dados gerenciado na nuvem (deixei sem volume para facilitar a remoção dos dados da carga batch
 - Aumentar a cobertura de testes para todo o projeto, bem como adicionar um job de testes na pipeline do github actions
 - Adicionar documentação do swagger na aplicação de forma automática
 
