@@ -3,7 +3,7 @@
 from src.entities.entities import CustomerService
 from src.repositories.abstract_repository import AbstractRepository
 from src.usecases.abstract_use_case import AbstractUseCase
-from src.usecases.exceptions import CustomerDoesNotExistException, CustomerServiceDoesNotExistException
+from src.usecases.shared.exceptions import CustomerDoesNotExistException, CustomerServiceDoesNotExistException
 
 
 class UpdateCustomerServiceUseCase(AbstractUseCase):

@@ -1,13 +1,8 @@
 
-# from queue import Queue
-import functools
-import logging
 from queue import Queue
-import sys
-import time
 from flask import Blueprint, request
 
-from src.models.client_model import CustomerModel
+from src.models.customer_model import CustomerModel
 from src.controllers.customer_services.load_customer_services_controller import LoadCustomerServicesController
 from src.controllers.customer_services.add_customer_service_controller import AddCustomerServiceController
 from src.controllers.customer_services.update_customer_service_controller import UpdateCustomerServiceController

@@ -2,7 +2,7 @@
 from src.entities.entities import Customer
 from src.repositories.abstract_repository import AbstractRepository
 from src.usecases.abstract_use_case import AbstractUseCase
-from src.usecases.exceptions import CustomerDoesNotExistException
+from src.usecases.shared.exceptions import CustomerDoesNotExistException
 
 
 class UpdateCustomerUseCase(AbstractUseCase):

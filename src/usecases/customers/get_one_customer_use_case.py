@@ -1,6 +1,6 @@
 
 from src.usecases.abstract_use_case import AbstractUseCase
-from src.usecases.exceptions import CustomerDoesNotExistException
+from src.usecases.shared.exceptions import CustomerDoesNotExistException
 from src.repositories.abstract_repository import AbstractRepository
 
 

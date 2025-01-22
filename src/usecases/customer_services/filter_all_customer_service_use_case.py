@@ -1,6 +1,6 @@
 
 from src.usecases.abstract_use_case import AbstractUseCase
-from src.usecases.exceptions import FilterClientIdException
+from src.usecases.shared.exceptions import FilterClientIdException
 from src.repositories.abstract_repository import AbstractRepository
 from flask import Request, url_for
 

@@ -10,9 +10,9 @@ class GetSLAController(AbstractController):
     def __init__(self, get_sla_use_case: AbstractUseCase):
         self.get_sla_use_case = get_sla_use_case
     
-    def handle(self, *args, **kwargs):
+    def handle(self, request):
         try:
-            results = self.get_sla_use_case.execute(**kwargs)
+            results = self.get_sla_use_case.execute(request)
         except Exception as e:
             return jsonify({'error': str(e)}), 500
 

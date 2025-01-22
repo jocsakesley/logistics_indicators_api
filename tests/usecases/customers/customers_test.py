@@ -1,7 +1,6 @@
 
 
 import io
-import json
 from queue import Queue
 import pytest
 from werkzeug.datastructures import FileStorage
@@ -15,7 +14,7 @@ from src.usecases.customers.get_one_customer_use_case import GetOneCustomerUseCa
 from src.usecases.customers.update_customer_use_case import UpdateCustomerUseCase
 from src.usecases.customers.filter_all_customers_use_case import FilterAllCustomersUseCase
 from tests.mocks.mock_request import MockRequest
-from src.usecases.exceptions import FilterClientIdException
+from src.usecases.shared.exceptions import FilterClientIdException
 
 
 
