@@ -52,8 +52,9 @@ cd logistics_indicators_api
 
 2. Configure as variáveis de ambiente (opcional)
  ```
- Arquivo .env disponibilizado no repositório apenas para desenvolvimento
- Para produção é recomendado que as variáveis sejam setadas de forma segura
+ Arquivo .env disponibilizado no repositório apenas para desenvolvimento.
+ Para produção é recomendado que as variáveis sejam setadas de forma segura.
+
  Variáveis do arquivo .env:
  POSTGRES_PASSWORD=postgres
  POSTGRES_USER=jocsa
@@ -71,24 +72,23 @@ docker-compose up -d
 ```bash
 docker ps
 ```
+6. Acesse a API pela url `localhost:8000` mais a rota de preferência
 
 ## 📓 Documentação da API
 
 A documentação pode ser baixada a partir [desse link](https://github.com/jocsakesley/logistics_indicators_api/blob/main/docs/logistics-api.postman_collection.json)   e importada para um client http como o postman ou baixar a [especificação openapi nesse link](https://github.com/jocsakesley/logistics_indicators_api/blob/main/docs/openapi.yaml) e importar no editor online [swagger editor](https://editor.swagger.io/) para uma melhor visualização.
 
-<<<<<<< HEAD
+Obs.: Para as consultas, é possível remover os filtros para trazer todos os resultados com paginação para clientes e atendimentos.
+
 ## 💻 Como usar
 
-- Faça o upload do arquivo `bd_desafio.csv` na rota `/v1/customers/batch`
+- Faça o upload do arquivo `utils/bd_desafio.csv` na rota `/v1/customers/batch`
 - Monitore o total de linhas inseridas na rota `/v1/customers/total` (o total deve ser 573670)
-- Faça o upload do arquivo `customers_data.csv` na rota `/v1/services/batch`
+- Faça o upload do arquivo `utils/customers_data.csv` na rota `/v1/services/batch`
 - Monitore o total de linhas inseridas na rota `/v1/services/total` (o total deve ser 1048575)
 - Registre um usuário na rota `/v1/auth/register` com `username`, `email` e `password`
 - Faça login na rota `/v1/auth/login` e copie o `access_token` retornado
 - Faça as devidas consultas conforme a documentação, passando no header o key `Authorization` e no value `Bearer <access_token>` 
-=======
-Obs.: Para as consultas, é possível remover os filtros para trazer todos os resultados com paginação para clientes e atendimentos.
->>>>>>> 0985e0e (refactor: move files to docs e utils and update README.MD)
 
 ## 🧪 Rodando Testes
 Os testes podem ser executados a partir dos seguintes comandos:
