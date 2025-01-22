@@ -106,13 +106,14 @@ Para a evolução do projeto pude identificar alguns pontos de melhoria:
 - Revisar usecases que podem ser melhor divididos em outras partes
 - Permitir configuração de threads, chuncks e sleep times para o processamento de arquivo batch a partir de variáveis de ambiente, garantindo o melhor tradeoff para produção (O tempo de processamento atual no endereço público está maior que ao rodar localmente, devido a limitação de configuração para evitar custos)
 - Montagem de um volume do banco de dados para garantir a persistência de arquivos ou uso do banco de dados gerenciado na nuvem (deixei sem volume para facilitar a remoção dos dados da carga batch
-- Aumentar a cobertura de testes para todo o projeto, bem como adicionar um job de testes na pipeline do github actions.
+- Aumentar a cobertura de testes para todo o projeto, bem como adicionar um job de testes na pipeline do github actions
+- Adicionar documentação do swagger na aplicação de forma automática
 
 
 ## 👤 Autor
 - Jocsã Kesley - Backend Developer
 - Email - jocsadm@gmail.com
-- Project Link: [https://github.com/username/project-name]([https://github.com/username/project-name](https://github.com/jocsakesley/logistics_indicators_api)
+- Project Link: https://github.com/username/project-name](https://github.com/jocsakesley/logistics_indicators_api
 
 ## 📊 Status do projeto
 - Development
