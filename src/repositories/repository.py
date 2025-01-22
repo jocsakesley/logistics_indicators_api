@@ -1,12 +1,10 @@
 
-
-from datetime import datetime
 from src.models.base_model import BaseModel
 from src.infra.db.db import DbSession
 from src.repositories.abstract_repository import AbstractRepository
 
 
-class SqlAlchemyRepository(AbstractRepository):
+class Repository(AbstractRepository):
     def __init__(self, db: DbSession, model: BaseModel):
         super().__init__()
         self.db = db.db
@@ -99,5 +97,3 @@ class SqlAlchemyRepository(AbstractRepository):
             self.db.commit()
         except Exception as e:
             raise e
-
-

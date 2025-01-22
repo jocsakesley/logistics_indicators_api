@@ -1,9 +1,10 @@
 
+from src.usecases.abstract_use_case import AbstractUseCase
 from src.usecases.exceptions import CustomerServiceDoesNotExistException
 from src.repositories.abstract_repository import AbstractRepository
 
 
-class GetOneCustomerServiceUseCase:
+class GetOneCustomerServiceUseCase(AbstractUseCase):
     def __init__(self, customer_service_repository: AbstractRepository):
         self.customer_service_repository = customer_service_repository
 

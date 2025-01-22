@@ -2,10 +2,11 @@
 from queue import Queue
 from flask import Request
 from src.repositories.abstract_repository import AbstractRepository
+from src.usecases.abstract_use_case import AbstractUseCase
 from src.usecases.file_handler_chunks import FileHandler
 
 
-class LoadCustomersUseCase:
+class LoadCustomersUseCase(AbstractUseCase):
     def __init__(self, customer_repository: AbstractRepository):
         self.customer_repository = customer_repository
 

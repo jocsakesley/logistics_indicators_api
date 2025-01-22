@@ -2,16 +2,14 @@
 from flask import Request, jsonify
 from marshmallow import ValidationError
 from sqlalchemy.exc import IntegrityError
-from src.models.user_model import UserModel
 from src.controllers.abstract_controller import AbstractController
 from src.entities.entities import UserLogin
-from src.usecases.auth.register_user_case import RegisterUseCase
-from src.usecases.exceptions import ExistentFieldException
-from src.usecases.auth.login_use_case import LoginUseCase
+from src.usecases.abstract_use_case import AbstractUseCase
+
 
 
 class LoginController(AbstractController):
-    def __init__(self, login_use_case: LoginUseCase):
+    def __init__(self, login_use_case: AbstractUseCase):
         self.login_use_case = login_use_case
 
     def handle(self, request: Request):

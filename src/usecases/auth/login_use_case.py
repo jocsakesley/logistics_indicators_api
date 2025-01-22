@@ -1,20 +1,14 @@
 
-from flask import Request
 from flask_jwt_extended import (
     create_access_token,
     create_refresh_token
 )
-from typing import Dict
-from sqlalchemy.exc import IntegrityError
-from marshmallow.exceptions import ValidationError
 from src.models.base_model import BaseModel
-from src.entities.entities import User, UserLogin
-from src.models.user_model import UserModel
-from src.usecases.exceptions import ExistentFieldException, IncompletedDataException
 from src.repositories.abstract_repository import AbstractRepository
+from src.usecases.abstract_use_case import AbstractUseCase
 
 
-class LoginUseCase:
+class LoginUseCase(AbstractUseCase):
     def __init__(self, repository: AbstractRepository):
         self.repository = repository
 

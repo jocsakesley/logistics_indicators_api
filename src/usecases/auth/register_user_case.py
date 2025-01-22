@@ -1,14 +1,10 @@
 
-from flask import Request
-from sqlalchemy.exc import IntegrityError
-from marshmallow.exceptions import ValidationError
-from src.entities.entities import User
-from src.models.user_model import UserModel
-from src.usecases.exceptions import ExistentFieldException, IncompletedDataException
+from src.usecases.abstract_use_case import AbstractUseCase
+from src.usecases.exceptions import ExistentFieldException
 from src.repositories.abstract_repository import AbstractRepository
 
 
-class RegisterUseCase:
+class RegisterUseCase(AbstractUseCase):
     def __init__(self, repository: AbstractRepository):
         self.repository = repository
 

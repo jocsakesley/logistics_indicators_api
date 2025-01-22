@@ -1,5 +1,4 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import relationship
 from src.models.base_model import BaseModel
 from werkzeug.security import generate_password_hash, check_password_hash
 

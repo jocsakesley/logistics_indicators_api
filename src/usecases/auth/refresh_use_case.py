@@ -6,9 +6,11 @@ from flask_jwt_extended import (
     get_jwt_identity
 )
 
+from src.usecases.abstract_use_case import AbstractUseCase
 
 
-class RefreshUseCase:
+
+class RefreshUseCase(AbstractUseCase):
 
 
     def execute(self):

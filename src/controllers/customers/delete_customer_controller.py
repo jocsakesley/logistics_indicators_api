@@ -1,14 +1,14 @@
 
 
 from flask import jsonify
+from src.usecases.abstract_use_case import AbstractUseCase
 from src.usecases.exceptions import CustomerDoesNotExistException
 from src.controllers.abstract_controller import AbstractController
-from src.usecases.customers.delete_customer_use_case import DeleteCustomerUseCase
 
 
 class DeleteCustomerController(AbstractController):
 
-    def __init__(self, delete_customer_use_case: DeleteCustomerUseCase):
+    def __init__(self, delete_customer_use_case: AbstractUseCase):
         self.delete_customer_use_case = delete_customer_use_case
 
     def handle(self, *args, **kwargs):

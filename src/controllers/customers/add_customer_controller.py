@@ -5,11 +5,11 @@ from sqlalchemy.exc import IntegrityError
 from src.controllers.abstract_controller import AbstractController
 from src.entities.entities import Customer
 from src.models.client_model import CustomerModel
-from src.usecases.customers.add_customer_use_case import AddCustomerUseCase
+from src.usecases.abstract_use_case import AbstractUseCase
 
 
 class AddCustomerController(AbstractController):
-    def __init__(self, add_customer_use_case: AddCustomerUseCase):
+    def __init__(self, add_customer_use_case: AbstractUseCase):
         self.add_customer_use_case = add_customer_use_case
     
     def handle(self, *args, **kwargs):

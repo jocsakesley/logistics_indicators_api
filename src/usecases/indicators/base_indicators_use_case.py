@@ -3,8 +3,10 @@
 from datetime import datetime
 from flask import Request
 
+from src.usecases.abstract_use_case import AbstractUseCase
 
-class BaseIndicatorsUseCase:
+
+class BaseIndicatorsUseCase(AbstractUseCase):
     def __init__(self):
         self.query = []
         self.results = []

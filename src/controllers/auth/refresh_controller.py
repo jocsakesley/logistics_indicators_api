@@ -1,12 +1,11 @@
 
-from flask import Request, jsonify
+from flask import jsonify
 from src.controllers.abstract_controller import AbstractController
-from src.usecases.auth.refresh_use_case import RefreshUseCase
-
+from src.usecases.abstract_use_case import AbstractUseCase
 
 
 class RefreshController(AbstractController):
-    def __init__(self, refresh_use_case: RefreshUseCase):
+    def __init__(self, refresh_use_case: AbstractUseCase):
         self.refresh_use_case = refresh_use_case
 
     def handle(self):

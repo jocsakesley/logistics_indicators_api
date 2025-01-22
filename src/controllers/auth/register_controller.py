@@ -5,12 +5,12 @@ from sqlalchemy.exc import IntegrityError
 from src.models.user_model import UserModel
 from src.controllers.abstract_controller import AbstractController
 from src.entities.entities import User
-from src.usecases.auth.register_user_case import RegisterUseCase
+from src.usecases.abstract_use_case import AbstractUseCase
 from src.usecases.exceptions import ExistentFieldException
 
 
 class RegisterController(AbstractController):
-    def __init__(self, register_use_case: RegisterUseCase):
+    def __init__(self, register_use_case: AbstractUseCase):
         self.register_use_case = register_use_case
 
     def handle(self, *args, **kwargs):

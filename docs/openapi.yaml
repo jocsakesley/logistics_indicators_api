@@ -1,0 +1,483 @@
+openapi: 3.0.3
+info:
+  title: logistics-api
+  version: 1.0.0
+  contact: {}
+servers:
+  - url: '{{url}}'
+paths:
+  /v1/auth/register:
+    post:
+      tags:
+        - Auth
+      summary: REGISTER
+      description: REGISTER
+      operationId: register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: admin@email.com
+                password:
+                  type: string
+                  example: '123123'
+                username:
+                  type: string
+                  example: admin
+            examples:
+              REGISTER:
+                value:
+                  email: admin@email.com
+                  password: '123123'
+                  username: admin
+      responses:
+        '200':
+          description: ''
+  /v1/auth/login:
+    post:
+      tags:
+        - Auth
+      summary: LOGIN
+      description: LOGIN
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  example: '123123'
+                username:
+                  type: string
+                  example: admin
+            examples:
+              LOGIN:
+                value:
+                  password: '123123'
+                  username: admin
+      responses:
+        '200':
+          description: ''
+  /v1/auth/refresh:
+    post:
+      tags:
+        - Auth
+      summary: REFRESH
+      description: REFRESH
+      operationId: refresh
+      responses:
+        '200':
+          description: ''
+  /v1/services:
+    get:
+      tags:
+        - Customer Services
+      summary: Filter All services
+      description: Filter All services
+      operationId: filterAllServices
+      parameters:
+        - name: angel
+          in: query
+          schema:
+            type: string
+            example: Sergio Wanderley Ferreira
+        - name: id
+          in: query
+          schema:
+            type: string
+            example: '57884'
+        - name: id_cliente
+          in: query
+          schema:
+            type: string
+            example: '664100565'
+        - name: polo
+          in: query
+          schema:
+            type: string
+            example: CE - JUAZEIRO DO NORTE
+        - name: data_de_atendimento
+          in: query
+          schema:
+            type: string
+            example: '2021-07-12 14:39:07'
+        - name: data_limite
+          in: query
+          schema:
+            type: string
+            example: '2021-07-16'
+      requestBody:
+        content:
+          application/json:
+            examples:
+              Filter All services:
+                value: ''
+      responses:
+        '200':
+          description: ''
+    post:
+      tags:
+        - Customer Services
+      summary: Create Service
+      description: Create Service
+      operationId: createService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                angel:
+                  type: string
+                  example: teste123
+                data_de_atendimento:
+                  type: string
+                  example: '2024-03-21 00:00:00'
+                data_limite:
+                  type: string
+                  example: '2024-05-22'
+                id_cliente:
+                  type: number
+                  example: 2
+                polo:
+                  type: string
+                  example: RJ
+            examples:
+              Create Service:
+                value:
+                  angel: teste123
+                  data_de_atendimento: '2024-03-21 00:00:00'
+                  data_limite: '2024-05-22'
+                  id_cliente: 2
+                  polo: RJ
+      responses:
+        '200':
+          description: ''
+  /v1/services/total:
+    get:
+      tags:
+        - Customer Services
+      summary: Get Total services
+      description: Get Total services
+      operationId: getTotalServices
+      responses:
+        '200':
+          description: ''
+  /v1/services/1:
+    get:
+      tags:
+        - Customer Services
+      summary: Get One service
+      description: Get One service
+      operationId: getOneService
+      responses:
+        '200':
+          description: ''
+    put:
+      tags:
+        - Customer Services
+      summary: Update service
+      description: Update service
+      operationId: updateService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                angel:
+                  type: string
+                  example: teste87687
+                data_de_atendimento:
+                  type: string
+                  example: '2024-03-21 00:00:00'
+                data_limite:
+                  type: string
+                  example: '2024-05-23'
+                id_cliente:
+                  type: number
+                  example: 2
+                polo:
+                  type: string
+                  example: RN
+            examples:
+              Update service:
+                value:
+                  angel: teste87687
+                  data_de_atendimento: '2024-03-21 00:00:00'
+                  data_limite: '2024-05-23'
+                  id_cliente: 2
+                  polo: RN
+      responses:
+        '200':
+          description: ''
+  /v1/services/batch:
+    post:
+      tags:
+        - Customer Services
+      summary: Load file services
+      description: Load file services
+      operationId: loadFileServices
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: ''
+  /v1/customers:
+    get:
+      tags:
+        - Customers
+      summary: Filter All customers
+      description: Filter All customers
+      operationId: filterAllCustomers
+      parameters:
+        - name: email
+          in: query
+          schema:
+            type: string
+            example: 820713124wwilliams@yahoo.com
+        - name: id
+          in: query
+          schema:
+            type: string
+            example: '820713124'
+        - name: nome
+          in: query
+          schema:
+            type: string
+            example: Tara Jones
+        - name: telefone
+          in: query
+          schema:
+            type: string
+            example: '05953162998'
+      requestBody:
+        content:
+          application/json:
+            examples:
+              Filter All customers:
+                value: ''
+      responses:
+        '200':
+          description: ''
+    post:
+      tags:
+        - Customers
+      summary: Create customer
+      description: Create customer
+      operationId: createCustomer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: teste1@gmail.com
+                nome:
+                  type: string
+                  example: teste1
+            examples:
+              Create customer:
+                value:
+                  email: teste1@gmail.com
+                  nome: teste1
+      responses:
+        '200':
+          description: ''
+  /v1/customers/total:
+    get:
+      tags:
+        - Customers
+      summary: Get Total customers
+      description: Get Total customers
+      operationId: getTotalCustomers
+      responses:
+        '200':
+          description: ''
+  /v1/customers/1:
+    get:
+      tags:
+        - Customers
+      summary: Get One customer
+      description: Get One customer
+      operationId: getOneCustomer
+      responses:
+        '200':
+          description: ''
+    put:
+      tags:
+        - Customers
+      summary: Update customer
+      description: Update customer
+      operationId: updateCustomer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: teste1@gmail.com
+                nome:
+                  type: string
+                  example: teste1
+                telefone:
+                  type: string
+                  example: '888888888'
+            examples:
+              Update customer:
+                value:
+                  email: teste1@gmail.com
+                  nome: teste1
+                  telefone: '888888888'
+      responses:
+        '200':
+          description: ''
+    delete:
+      tags:
+        - Customers
+      summary: Delete customer
+      description: Delete customer
+      operationId: deleteCustomer
+      requestBody:
+        content:
+          application/json:
+            examples:
+              Delete customer:
+                value: ''
+      responses:
+        '200':
+          description: ''
+  /v1/customers/batch:
+    post:
+      tags:
+        - Customers
+      summary: Load file customers
+      description: Load file customers
+      operationId: loadFileCustomers
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: ''
+  /v1/indicators/sla/polo:
+    get:
+      tags:
+        - Indicators
+      summary: SLA Polo
+      description: SLA Polo
+      operationId: slaPolo
+      parameters:
+        - name: sort_field
+          in: query
+          schema:
+            type: string
+            example: total
+        - name: desc
+          in: query
+          schema:
+            type: string
+            example: 'false'
+        - name: start_date
+          in: query
+          schema:
+            type: string
+            example: '2021-02-03'
+        - name: end_date
+          in: query
+          schema:
+            type: string
+            example: '2021-10-03'
+      responses:
+        '200':
+          description: ''
+  /v1/indicators/sla/angel:
+    get:
+      tags:
+        - Indicators
+      summary: SLA Angel
+      description: SLA Angel
+      operationId: slaAngel
+      parameters:
+        - name: sort_field
+          in: query
+          schema:
+            type: string
+            example: total
+        - name: desc
+          in: query
+          schema:
+            type: string
+            example: 'false'
+        - name: start_date
+          in: query
+          schema:
+            type: string
+            example: '2021-02-03'
+        - name: end_date
+          in: query
+          schema:
+            type: string
+            example: '2021-10-03'
+      responses:
+        '200':
+          description: ''
+  /v1/indicators/productivity:
+    get:
+      tags:
+        - Indicators
+      summary: Productivity
+      description: Productivity
+      operationId: productivity
+      parameters:
+        - name: sort_field
+          in: query
+          schema:
+            type: string
+            example: total
+        - name: desc
+          in: query
+          schema:
+            type: string
+            example: 'false'
+        - name: start_date
+          in: query
+          schema:
+            type: string
+            example: '2021-02-03'
+        - name: end_date
+          in: query
+          schema:
+            type: string
+            example: '2021-10-03'
+      responses:
+        '200':
+          description: ''
+tags:
+  - name: Auth
+  - name: Customer Services
+  - name: Customers
+  - name: Indicators

@@ -1,4 +1,3 @@
-import functools
 import time
 from flask import json, request
 from flask_jwt_extended import verify_jwt_in_request
