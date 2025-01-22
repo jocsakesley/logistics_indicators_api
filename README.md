@@ -76,6 +76,14 @@ docker ps
 
 A documentação pode ser baixada a partir [desse link](https://github.com/jocsakesley/logistics_indicators_api/blob/main/docs/logistics-api.postman_collection.json)   e importada para um client http como o postman ou baixar a [especificação openapi nesse link](https://github.com/jocsakesley/logistics_indicators_api/blob/main/docs/openapi.yaml) e importar no editor online [swagger editor](https://editor.swagger.io/) para uma melhor visualização.
 
+## 💻 Como usar
+
+- Faça o upload do arquivo na rota `/v1/customers/batch`
+- Monitore o total de linhas inseridas na rota `/v1/customers/total` (o total deve ser 573670)
+- Faça o upload do arquivo na rota `/v1/services/batch`
+- Monitore o total de linhas inseridas na rota `/v1/services/total` (o total deve ser 1048575)
+- Faça as devidas consultas conforme a documentação
+
 ## 🧪 Rodando Testes
 Os testes podem ser executados a partir dos seguintes comandos:
 
