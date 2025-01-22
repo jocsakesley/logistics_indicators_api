@@ -11,8 +11,7 @@ class BaseIndicatorsUseCase(AbstractUseCase):
         self.query = []
         self.results = []
 
-    def execute(self, *args, **kwargs):
-        request: Request = kwargs.get("request")
+    def execute(self, request: Request):
         params = self._extract_params(request)
         if params.get("start_date") and params.get("end_date"):
             params["filters"] = self._build_filters(params.get("start_date"), params.get("end_date"))

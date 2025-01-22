@@ -20,7 +20,7 @@ O projeto trata-se de uma API que permite o cadastro de clientes e atendimentos 
 - Consulta do total de registros para clientes e atendimentos nas rotas `/v1/customers/total` e `/v1/services/total`, facilitando o monitoramento da conclusão da carga batch.
 - Consulta da rota `/v1/customers` com filtros para todos os campos (`email`, `nome` e `telefone`) e paginação a partir dos parameters `limit` e `offset`
 - Consulta da rota `/v1/services` com filtros para todos os campos (`email`, `nome` e `telefone`) e paginação a partir dos parameters `limit` e `offset`
-- Consuta da rota `/v1/indicators/productivity`, `/v1/indicators/sla/angel` e `/v1/indicators/sla/polo` com filtros de data (`start_date=YYYY-MM-DD` e `end_date=YYYY-MM-DD`) e ordenação (`sort_field=<total, total_sla>`  e `desc=<true, false>`)
+- Consuta da rota `/v1/indicators/productivity`, `/v1/indicators/sla/angel` e `/v1/indicators/sla/polo` com filtros de data (`start_date=YYYY-MM-DD` e `end_date=YYYY-MM-DD`) e ordenação (`sort_field=<total, total_sla, avg_time>`  e `desc=<true, false>`)
 - Monitoramento das requisições através de logs com status e tempo de resposta, implementado a partir de um midlleware que calcula os tempos a cada requisição
 ![image](https://github.com/user-attachments/assets/769979f7-85a0-4cb2-a918-fa6b7542945b)
 - Monitoramento do tempo de carga do arquivo batch através dos logs
@@ -76,6 +76,7 @@ docker ps
 
 A documentação pode ser baixada a partir [desse link](https://github.com/jocsakesley/logistics_indicators_api/blob/main/docs/logistics-api.postman_collection.json)   e importada para um client http como o postman ou baixar a [especificação openapi nesse link](https://github.com/jocsakesley/logistics_indicators_api/blob/main/docs/openapi.yaml) e importar no editor online [swagger editor](https://editor.swagger.io/) para uma melhor visualização.
 
+<<<<<<< HEAD
 ## 💻 Como usar
 
 - Faça o upload do arquivo `bd_desafio.csv` na rota `/v1/customers/batch`
@@ -85,6 +86,9 @@ A documentação pode ser baixada a partir [desse link](https://github.com/jocsa
 - Registre um usuário na rota `/v1/auth/register` com `username`, `email` e `password`
 - Faça login na rota `/v1/auth/login` e copie o `access_token` retornado
 - Faça as devidas consultas conforme a documentação, passando no header o key `Authorization` e no value `Bearer <access_token>` 
+=======
+Obs.: Para as consultas, é possível remover os filtros para trazer todos os resultados com paginação para clientes e atendimentos.
+>>>>>>> 0985e0e (refactor: move files to docs e utils and update README.MD)
 
 ## 🧪 Rodando Testes
 Os testes podem ser executados a partir dos seguintes comandos:
