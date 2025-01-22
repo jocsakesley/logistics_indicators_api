@@ -25,7 +25,8 @@ O projeto trata-se de uma API que permite o cadastro de clientes e atendimentos 
 ![image](https://github.com/user-attachments/assets/769979f7-85a0-4cb2-a918-fa6b7542945b)
 - Monitoramento do tempo de carga do arquivo batch através dos logs
 - Testes unitários para os usecases que contém o core das regras de negócios
-- Testes end-to-end foram feitos a partir de uma collection do postman 
+- Testes end-to-end foram feitos a partir de uma collection do postman
+- Padronização de commits para cada tipo de alteração (feat, refactor, test, build, doc) 
 - Execução do projeto a partir do docker compose
 - Build e push da imagem para o docker hub através da pipeline do github actions
 - Deploy da aplicação na AWS ECS a partir da pipeline do CloudFormation
@@ -41,6 +42,7 @@ O projeto trata-se de uma API que permite o cadastro de clientes e atendimentos 
 - README com instruções para instalação e execução do projeto
 
 ## 🚀 Instalação e Setup
+Para a execução do projeto é necessario que o [docker](https://docs.docker.com/engine/install/) e o [docker compose](https://docs.docker.com/compose/install/) estejam instalados
 
 1. Clone o repositório
 ```bash
@@ -78,7 +80,7 @@ A documentação pode ser baixada a partir [desse link](https://github.com/jocsa
 Os testes podem ser executados a partir dos seguintes comandos:
 
 ```bash
-pip install -r tests/requirements_tests
+pip install -r tests/requirements_tests.txt
 coverage run -m pytest -s -v tests
 coverage report
 ```
@@ -100,7 +102,7 @@ Para a evolução do projeto pude identificar alguns pontos de melhoria:
 ## 👤 Autor
 - Jocsã Kesley - Backend Developer
 - Email - jocsadm@gmail.com
-- Project Link: [https://github.com/username/project-name](https://github.com/username/project-name)
+- Project Link: [https://github.com/username/project-name]([https://github.com/username/project-name](https://github.com/jocsakesley/logistics_indicators_api)
 
 ## 📊 Status do projeto
 - Development
