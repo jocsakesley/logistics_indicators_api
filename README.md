@@ -41,6 +41,7 @@ O projeto trata-se de uma API que permite o cadastro de clientes e atendimentos 
 - README com instruções para instalação e execução do projeto
 
 ## 🚀 Instalação e Setup
+Para a execução do projeto é necessario que o [docker](https://docs.docker.com/engine/install/) e o [docker compose](https://docs.docker.com/compose/install/) estejam instalados
 
 1. Clone o repositório
 ```bash
@@ -78,7 +79,7 @@ A documentação pode ser baixada a partir [desse link](https://github.com/jocsa
 Os testes podem ser executados a partir dos seguintes comandos:
 
 ```bash
-pip install -r tests/requirements_tests
+pip install -r tests/requirements_tests.txt
 coverage run -m pytest -s -v tests
 coverage report
 ```
