@@ -44,7 +44,7 @@ O projeto trata-se de uma API que permite o cadastro de clientes e atendimentos 
 - README com instruções para instalação e execução do projeto
 
 ## 🚀 Instalação e Setup
-Para a execução do projeto é necessario que o [docker](https://docs.docker.com/engine/install/) e o [docker compose](https://docs.docker.com/compose/install/) estejam instalados e seguidos os seguintes passos:
+Para a execução local do projeto é necessário que o [docker](https://docs.docker.com/engine/install/) e o [docker compose](https://docs.docker.com/compose/install/) estejam instalados e seguidos os seguintes passos:
 
 1. Clone o repositório
 ```bash
@@ -111,16 +111,19 @@ coverage report
 ```
 
 ## 🔥 Desafios
-Durante a execução do projeto me deparei com alguns desafios para o deploy via pipeline do github actions. As roles de acesso para meu usuário do github estavam funcionando porém o setup de configuração da máquina remota requeria alguns passos que poderiam ser facilmente contornados com uma imagem da instancia personalizada e consequentemente mais cara.
-Dessa forma optei por fazer o build e push da imagem pelo github actions no docker hub e a partir dessa imagem e com as configurações de credenciais configuradas localmente, consegui fazer o deploy no ECS usando docker contex para criar o cluster e os services a partir do docker-compose.prd.yml do projeto que inicializa uma pipeline do CloudFormation com todos os recursos necessários para disponibilização pública.
+Durante a execução do projeto me deparei com alguns desafios para o deploy via pipeline do github actions. As roles de acesso para meu usuário do github estavam funcionando porém o setup de configuração da máquina remota requeria alguns passos que poderiam ser facilmente contornados com uma imagem da instância personalizada e consequentemente mais cara. Poderia fazer também o provisionamento de infraestrutura via Terraform e github actions mas despriorizei devido
+Dessa forma optei por fazer o build e push da imagem pelo github actions no docker hub e a partir dessa imagem e com as configurações de credenciais aws configuradas localmente, consegui fazer o deploy no ECS usando docker contex para criar o cluster e os services a partir do `docker-compose.prd.yml` do projeto que inicializa uma pipeline do CloudFormation com todos os recursos necessários para disponibilização pública do serviço.
 
 ## 📝 Oportunidades de melhoria
 Para a evolução do projeto pude identificar alguns pontos de melhoria:
 - Gerenciamento de usuários (hoje só tem o registro)
-- Correção para deploy inteiramente pelo github actions
 - Revisar usecases que podem ser melhor divididos em outras partes
 - Aumentar a cobertura de testes para todo o projeto, bem como adicionar um job de testes na pipeline do github actions
 - Adicionar documentação do swagger na aplicação de forma automática
+- Correção para deploy inteiramente pelo github actions
+- Provisionamento de infraestrutura via módulo Terraform na pipeline do github actions
+- Criar uma distribution no CloudFront com a origin apontada para o endereço do load balancer para minimizar a latência das chamadas
+- Registrar um domínio e criar um DNS no Route53 para acesso via nomes de domínio na URL 
 
 
 ## 👤 Autor
