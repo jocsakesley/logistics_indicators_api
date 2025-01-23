@@ -28,13 +28,13 @@ jobs:
 
     - name: Install dependencies
       run: |
-        export PYTHONPATH=.
         python -m pip install --upgrade pip
         pip install -r ./tests/requirements_tests.txt
 
     - name: Run pytest
       run: |
-        pytest tests/
+        coverage run -m pytest -s -v tests/
+        coverage report
 
   build-and-push:
     runs-on: ubuntu-latest
