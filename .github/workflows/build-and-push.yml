@@ -30,7 +30,7 @@ jobs:
       run: |
         export PYTHONPATH=.
         python -m pip install --upgrade pip
-        pip install -r ./tests/requirements.txt
+        pip install -r ./tests/requirements_tests.txt
 
     - name: Run pytest
       run: |
