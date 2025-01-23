@@ -23,8 +23,9 @@ O projeto trata-se de uma API que permite o cadastro de clientes e atendimentos 
 - Consuta da rota `/v1/indicators/productivity`, `/v1/indicators/sla/angel` e `/v1/indicators/sla/polo` com filtros de data (`start_date=YYYY-MM-DD` e `end_date=YYYY-MM-DD`) e ordenação (`sort_field=<total, total_sla, avg_time>`  e `desc=<true, false>`)
 - Monitoramento das requisições através de logs com status e tempo de resposta, implementado a partir de um midlleware que calcula os tempos a cada requisição
 ![image](https://github.com/user-attachments/assets/769979f7-85a0-4cb2-a918-fa6b7542945b)
-- Monitoramento do tempo de carga do arquivo batch através dos logs
-média de 48 segundos para o arquivo de clientes com 573670 linhas e 80 segundos para o arquivo de atendimentos com 1048575 linhas
+- Monitoramento do tempo de carga do arquivo batch através dos logs com uma média de 48 segundos para o arquivo de clientes com 573670 linhas e 80 segundos para o arquivo de atendimentos com 1048575 linhas
+![image](https://github.com/user-attachments/assets/4e00b4d9-4a1f-4b4b-abb5-7ad0e0cf1751)
+![image](https://github.com/user-attachments/assets/dc685b2a-2494-4c89-9aa4-c3bfd6b8dea9)
 - Testes unitários para os usecases que contém o core das regras de negócios
 - Testes end-to-end foram feitos a partir de uma collection do postman, porém podem ser adicionados ao projeto
 - Padronização de commits para cada tipo de alteração (feat, refactor, test, build, doc) 
@@ -125,7 +126,7 @@ Para a evolução do projeto pude identificar alguns pontos de melhoria:
 ## 👤 Autor
 - Jocsã Kesley - Backend Developer
 - Email - jocsadm@gmail.com
-- Project Link: https://github.com/username/project-name](https://github.com/jocsakesley/logistics_indicators_api
+- Project Link: https://github.com/jocsakesley/logistics_indicators_api
 
 ## 📊 Status do projeto
 - Development
