@@ -53,12 +53,12 @@ cd logistics_indicators_api
 ```
 
 2. Configure as variáveis de ambiente (opcional)
+
+Arquivo .env disponibilizado no repositório apenas para desenvolvimento.
+Para produção é recomendado que as variáveis sensíveis sejam setadas de forma segura através de um gerenciador de segredos.
+
+Variáveis do arquivo .env:
  ```
- Arquivo .env disponibilizado no repositório apenas para desenvolvimento.
- Para produção é recomendado que as variáveis sejam setadas de forma segura através de um gerenciador de segredos.
-
- Variáveis do arquivo .env:
-
  #Database
  POSTGRES_PASSWORD=postgres
  POSTGRES_USER=jocsa
@@ -118,7 +118,8 @@ Dessa forma optei por fazer o build e push da imagem pelo github actions no dock
 ## 📝 Oportunidades de melhoria
 Para a evolução do projeto pude identificar alguns pontos de melhoria:
 - Gerenciamento de usuários (hoje só tem o registro)
-- Revisar usecases que podem ser melhor divididos em outras partes
+- Revisar usecases que podem ser melhor divididos em outras partes de dominio de negócios
+- Usar uma fila apartada da aplicação via sdk para evitar perda de dados in memory em caso de falha do container da aplicação
 - Aumentar a cobertura de testes para todo o projeto
 - Adicionar documentação do swagger na aplicação de forma automática
 - Correção para deploy inteiramente pelo github actions
