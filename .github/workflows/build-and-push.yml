@@ -2,7 +2,7 @@ name: Pipeline
 
 on:
   push:
-    branches: [ feture/tests ]
+    branches: [ feature/tests ]
 
 permissions:
   id-token: write
