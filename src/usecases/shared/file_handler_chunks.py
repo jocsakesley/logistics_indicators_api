@@ -30,7 +30,7 @@ class FileHandler:
             with self.lock:
                 chunks = []
                 lines = []
-                for _ in range(min(int(os.getenv("SIZE_FILE_CHUNKS")), self.queue.qsize())):
+                for _ in range(min(int(os.getenv("SIZE_FILE_CHUNKS", 2000)), self.queue.qsize())):
                     line = self.queue.get_nowait()
                     lines.append(line)
                     register = line.split(";")
@@ -49,7 +49,7 @@ class FileHandler:
                 time.sleep(0.1)
                 end = time.time() - self.start
                 if self.queue.empty():
-                    time.sleep(int(os.getenv("SECONDS_WAIT_QUEUE_EMPTY")))
+                    time.sleep(int(os.getenv("SECONDS_WAIT_QUEUE_EMPTY", 10)))
                     end = time.time() - self.start
                     if self.queue.empty():
                         end = time.time() - self.start
@@ -65,7 +65,7 @@ class FileHandler:
 
     def __start_threads(self):
         self.start = time.time()
-        for i in range(int(os.getenv("NUMBER_WORKER_FILE_THREADS"))):
+        for i in range(int(os.getenv("NUMBER_WORKER_FILE_THREADS", 100))):
             thread = Thread(target=self.__listen_queue, args=(f"worker-{i}",), daemon=True)
             thread.start()
         

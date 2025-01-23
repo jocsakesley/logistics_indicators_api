@@ -2,7 +2,7 @@ name: Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: [ feture/tests ]
 
 permissions:
   id-token: write
@@ -15,6 +15,31 @@ env:
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.9, 3.10, 3.11]
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest
+        pip install -r requirements.txt
+
+    - name: Run pytest
+      run: |
+        export PYTHONPATH=.
+        pytest tests/
+
   build-and-push:
     runs-on: ubuntu-latest
     steps:
