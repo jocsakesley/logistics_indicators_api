@@ -2,7 +2,7 @@ name: Pipeline
 
 on:
   push:
-    branches: [ feature/deployment ]
+    branches: [ main ]
 
 permissions:
   id-token: write
@@ -13,14 +13,9 @@ env:
   AWS_REGION: us-east-1
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-  ECS_CLUSTER: logistics-ecs
-  APP_CONTAINER: app-container
-  APP_SERVICE: app-service
-  DB_CONTAINER: db-container
-  DB-SERVICE: db-service
 
 jobs:
-  deploy:
+  build-and-push:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -52,18 +47,3 @@ jobs:
             -t jocsakesley/logistics:$IMAGE_TAG \
             -t jocsakesley/logistics:latest .
       
-      - name: Deploy App Service
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: .aws/desafio-app-revision16.json
-          service: ${{ env.APP_SERVICE }}
-          cluster: ${{ env.ECS_CLUSTER }}
-          wait-for-service-stability: true
-
-      - name: Deploy DB Service
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: .aws/desafio-db-revision13.json
-          service: ${{ env.DB_SERVICE }}
-          cluster: ${{ env.ECS_CLUSTER }}
-          wait-for-service-stability: true

@@ -1,9 +1,12 @@
-# Use postgres/example user/password credentials
 version: '3.9'
 
 services:
   app:
     image: jocsakesley/logistics:latest
+    deploy:
+      resources:
+        reservations:
+          cpus: '0.50'
     restart: always
     ports:
       - 8000:8000
