@@ -21,7 +21,7 @@ def set_middlewares(app):
 
     @app.before_request
     def require_jwt():
-        public_endpoints = ['auth.login', 'auth.register', 'auth.refresh']
+        public_endpoints = ['auth.login', 'auth.register', 'auth.refresh', 'monitoring.health']
         if request.endpoint and request.endpoint not in public_endpoints:
             verify_jwt_in_request()
 

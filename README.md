@@ -26,6 +26,7 @@ O projeto trata-se de uma API que permite o cadastro de clientes e atendimentos 
 - Monitoramento do tempo de carga do arquivo batch através dos logs com uma média de 48 segundos para o arquivo de clientes com 573670 linhas e 80 segundos para o arquivo de atendimentos com 1048575 linhas
 ![image](https://github.com/user-attachments/assets/4e00b4d9-4a1f-4b4b-abb5-7ad0e0cf1751)
 ![image](https://github.com/user-attachments/assets/dc685b2a-2494-4c89-9aa4-c3bfd6b8dea9)
+- Monitoramento através de requests às rotas `/v1/metrics` com métricas de CPU, memória e disco e `/v1/health` para monitoramento da saúde do servidor
 - Testes unitários para os usecases que contém o core das regras de negócios
 - Testes end-to-end foram feitos a partir de uma collection do postman, porém podem ser adicionados ao projeto
 - Padronização de commits para cada tipo de alteração (feat, refactor, test, build, doc) 
