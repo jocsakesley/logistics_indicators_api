@@ -10,8 +10,8 @@ paths:
     post:
       tags:
         - Auth
-      summary: REGISTER
-      description: REGISTER
+      summary: Register
+      description: Register
       operationId: register
       requestBody:
         content:
@@ -29,7 +29,7 @@ paths:
                   type: string
                   example: admin
             examples:
-              REGISTER:
+              Register:
                 value:
                   email: admin@email.com
                   password: '123123'
@@ -41,8 +41,8 @@ paths:
     post:
       tags:
         - Auth
-      summary: LOGIN
-      description: LOGIN
+      summary: Login
+      description: Login
       operationId: login
       requestBody:
         content:
@@ -57,7 +57,7 @@ paths:
                   type: string
                   example: admin
             examples:
-              LOGIN:
+              Login:
                 value:
                   password: '123123'
                   username: admin
@@ -68,9 +68,9 @@ paths:
     post:
       tags:
         - Auth
-      summary: REFRESH
-      description: REFRESH
-      operationId: refresh
+      summary: Refresh Token
+      description: Refresh Token
+      operationId: refreshToken
       responses:
         '200':
           description: ''
@@ -112,12 +112,6 @@ paths:
           schema:
             type: string
             example: '2021-07-16'
-      requestBody:
-        content:
-          application/json:
-            examples:
-              Filter All services:
-                value: ''
       responses:
         '200':
           description: ''
@@ -264,12 +258,6 @@ paths:
           schema:
             type: string
             example: '05953162998'
-      requestBody:
-        content:
-          application/json:
-            examples:
-              Filter All customers:
-                value: ''
       responses:
         '200':
           description: ''
@@ -355,12 +343,6 @@ paths:
       summary: Delete customer
       description: Delete customer
       operationId: deleteCustomer
-      requestBody:
-        content:
-          application/json:
-            examples:
-              Delete customer:
-                value: ''
       responses:
         '200':
           description: ''
@@ -476,8 +458,29 @@ paths:
       responses:
         '200':
           description: ''
+  /v1/metrics:
+    get:
+      tags:
+        - Monitoring
+      summary: Get Metrics
+      description: Get Metrics
+      operationId: getMetrics
+      responses:
+        '200':
+          description: ''
+  /v1/health:
+    get:
+      tags:
+        - Monitoring
+      summary: Health check
+      description: Health check
+      operationId: healthCheck
+      responses:
+        '200':
+          description: ''
 tags:
   - name: Auth
   - name: Customer Services
   - name: Customers
   - name: Indicators
+  - name: Monitoring
