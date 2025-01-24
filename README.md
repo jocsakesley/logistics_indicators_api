@@ -99,9 +99,9 @@ Obs.: Para as consultas, é possível remover os filtros para trazer todos os re
 - Registre um usuário na rota `/v1/auth/register` com `username`, `email` e `password`
 - Faça login na rota `/v1/auth/login` e copie o `access_token` retornado
 - Em todas as chamadas passe no header o key `Authorization` e no value `Bearer <access_token>`
-- Faça o upload do arquivo `utils/bd_desafio.csv` na rota `/v1/customers/batch` 
+- Faça o upload do arquivo `utils/customers_data.csv` na rota `/v1/customers/batch` 
 - Monitore o total de linhas inseridas na rota `/v1/customers/total` (o total deve ser 573670)
-- Faça o upload do arquivo `utils/customers_data.csv` na rota `/v1/services/batch`
+- Faça o upload do arquivo `utils/bd_desafio.csv` na rota `/v1/services/batch`
 - Monitore o total de linhas inseridas na rota `/v1/services/total` (o total deve ser 1048575) 
 - Faça as devidas consultas conforme a documentação
 
