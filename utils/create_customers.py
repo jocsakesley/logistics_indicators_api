@@ -3,7 +3,7 @@ from pathlib import Path
 from faker import Faker
 
 
-df = pd.read_csv(Path(__file__).parent.parent / "bd_desafio.csv", sep=";")
+df = pd.read_csv(Path(__file__).parent / "bd_desafio.csv", sep=";")
 
 print(df.shape)
 df = df.drop_duplicates(subset='id_cliente')
